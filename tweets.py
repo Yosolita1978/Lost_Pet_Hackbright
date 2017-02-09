@@ -1,18 +1,21 @@
-import os  # To access our OS environment variables
+import requests
+from bs4 import BeautifulSoup
+from urlparse import urljoin
 
-import twitter
+URL = 'https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1'
+BASE = 'http://sfbay.craigslist.org/search/laf'
 
-# Using Python os.environ to get environmental variables
-#
-# Note: you must run `source secrets.sh` before running
-# this file to set required environmental variables.
+response = requests.get(URL)
 
-api = twitter.Api(
-    consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
-    consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
-    access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
-    access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
+soup = BeautifulSoup(response.content, "html.parser")
+for listing in soup.find_all('ul',{'class':'rows'}):
+    if listing.find('a',{'class':'result-title-hdrlnk'}) != None:
+        name = listing.text
+        print name
+        print "\n"
 
-# This will print info about credentials to make sure
-# they're correct
-print api.VerifyCredentials()
+
+            # link_end = listing.a['href']
+            # url = urljoin(BASE, link_end)
+            # print url
+            # print "\n"
