@@ -39,8 +39,7 @@ class PetSpider(CrawlSpider):
         description = clean_string(description)
         date_list = response.xpath('//*[@id="display-date"]/time').extract()
         date_string = date_list[0]
-        string = date_string[32:-27]
-        date = datetime.datetime.strptime(string, '%Y-%m-%dT%H:%M:%S-%f')
+        date = date_string[32:-27]
 
         mapdata = response.xpath('//*[@id="map"]')
         longitude = None

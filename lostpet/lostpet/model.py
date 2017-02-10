@@ -1,7 +1,9 @@
 """Models and database functions for LostPet db."""
 
-import datetime
+
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 # Here's where I create the idea of database.
 
@@ -53,7 +55,7 @@ class Breed(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Breed breed_id=%s specie_code=%s name=%s>" % (self.breed_id, self.species_code, self.name)
+        return "<Breed breed_code=%s specie_code=%s name=%s>" % (self.breed_code, self.species_code, self.name)
 
     species = db.relationship("Species", backref=db.backref("breeds"))
 
@@ -90,7 +92,7 @@ class Color(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Color color_id=%s species_code=%s color=%s>" % (self.breed_id, self.species_code, self.name)
+        return "<Color color_id=%s species_code=%s color=%s>" % (self.color_id, self.species_code, self.name)
 
     species = db.relationship("Species", backref=db.backref("colors"))
 
@@ -103,19 +105,33 @@ class LostPet(db.Model):
     lost_pet_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
     lost_pet_name = db.Column(db.String(80), nullable=True)
     species_code = db.Column(db.String(5), db.ForeignKey('species.species_code'), nullable=False)
-    breed_code = db.Column(db.String(5), db.ForeignKey('breeds.breed_code'), nullable=False)
+    breed_code = db.Column(db.String(5), db.ForeignKey('breeds.breed_code'), nullable=True)
     lost_pet_gender = db.Column(db.String(1), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     lost_pet_color = db.Column(db.Integer, db.ForeignKey('colors.color_id'), nullable=True)
-    description_tweet = db.Column(db.String(200), nullable=True)
-    datetime = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow)
+    description = db.Column(db.String(500), nullable=True)
+    datetime = db.Column(db.String(100), nullable=True)
     photo = db.Column(db.String(400), nullable=True)
-    location = db.Column(db.String(400), nullable=True)
+    latitude = db.Column(db.String(400), nullable=True)
+    longitude = db.Column(db.String(400), nullable=True)
+    neighborhood = db.Column(db.String(400), nullable=True)
+    url = db.Column(db.String(400), nullable=True)
+    title = db.Column(db.String(400), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<LostPet lostpet_id=%s user_id=%s lostpet_name=%s specie_code=%s breed_code=%s lostpet_gender=%s lostpet_color=%s description=%s datetime=%s photo=%s location=%s>" % (self.lost_pet_id, self.user_id, self.lost_pet_name, self.specie_code, self.breed_code, self.lost_pet_gender, self.lost_pet_color, self.description_tweet, self.datetime, self.photo, self.location)
+        return "<LostPet lostpet_id=%s lostpet_name=%s species_code=%s title=%s, description=%s datetime=%s photo=%s latitude=%s, longitude=%s, neighborhood=%s, url=%s>" % (self.lost_pet_id,
+                                                                                                                                                                             self.lost_pet_name,
+                                                                                                                                                                             self.species_code,
+                                                                                                                                                                             self.title,
+                                                                                                                                                                             self.description,
+                                                                                                                                                                             self.datetime,
+                                                                                                                                                                             self.photo,
+                                                                                                                                                                             self.latitude,
+                                                                                                                                                                             self.longitude,
+                                                                                                                                                                             self.neighborhood,
+                                                                                                                                                                             self.url)
 
     species = db.relationship("Species", backref=db.backref("lostpets"))
     user = db.relationship("User", backref=db.backref("lostpets"))
@@ -158,11 +174,11 @@ def init_app():
     from flask import Flask
     app = Flask(__name__)
 
-    connect_to_db(app)
+    connect_to_db_flask(app)
     print "Connected to DB."
 
 
-def connect_to_db(app):
+def connect_to_db_flask(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
@@ -171,6 +187,14 @@ def connect_to_db(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
+
+
+def connect_to_db():
+    engine = create_engine('postgres:///lostpets', echo=False)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    return session
 
 
 if __name__ == "__main__":
@@ -182,6 +206,6 @@ if __name__ == "__main__":
 
     app = Flask(__name__)
 
-    connect_to_db(app)
+    connect_to_db_flask(app)
     db.create_all()
     print "Connected to DB."

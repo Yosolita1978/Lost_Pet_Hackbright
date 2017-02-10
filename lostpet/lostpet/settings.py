@@ -15,6 +15,13 @@ BOT_NAME = 'lostpet'
 SPIDER_MODULES = ['lostpet.spiders']
 NEWSPIDER_MODULE = 'lostpet.spiders'
 
+# DATABASE = {
+#     'drivername': 'postgres',
+#     'host': 'localhost',
+#     'port': '5432',
+#     'database': 'lostpet'
+# }
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'lostpet (+http://www.yourdomain.com)'
 

@@ -4,22 +4,60 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import json
+
+from model import Species, User, Breed, Color, LostPet, BreedPet, ColorPet, connect_to_db
+
+    # Configure to use our database.
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///lostpets'
+    # app.config['SQLALCHEMY_ECHO'] = False
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # db.app = app
+    # db.init_app(app)
+
 
 class LostPetPipeline(object):
 
     def __init__(self):
-        self.file = open('datapets.jl', 'wb')
+        """
+        Initializes database connection.
+        """
+        self.session = connect_to_db()
 
     def process_item(self, item, spider):
-        print "This is your data"
 
-        for k,v in dict(item).items():
-            print type(k), type(v)
-            print k, v
-        print type(dict(item)["neighborhood"][0]), dict(item)["neighborhood"][0]
+        urls = self.session.query(LostPet.url).all()
+        if item["url"] not in urls:
+            url = item["url"]
+            description = item["description"]
+            datetime = item["date"]
+            latitude = item["latitude"]
+            longitude = item["longitude"]
+            title = item["title"]
+            img = item["img"]
+            neighborhood = item["neighborhood"]
+            photo = None
 
-        line = json.dumps(dict(item), indent=4, sort_keys=True, default=str) + "\n"
-        self.file.write(line)
-        
-        return item
+            if type(img) == list and len(img) != 0:
+                    photo = img[0]
+
+            if type(neighborhood) == list and len(neighborhood) != 0:
+                neighborhood = neighborhood[0]
+
+            if "dog" in item["title"]:
+                species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
+            else:
+                species_code = self.session.query(Species.species_code).filter(Species.name == 'cat').one()
+
+            pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
+
+        else:
+            print "Sorry, That pet already exists"
+
+        try:
+            self.session.add(pet)
+            self.session.commit()
+        except:
+            self.session.rollback()
+            raise
+        finally:
+            self.session.close()
