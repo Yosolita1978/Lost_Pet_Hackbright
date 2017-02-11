@@ -1,10 +1,9 @@
-
 import scrapy
 from scrapy.contrib.spiders import Rule, CrawlSpider
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from items import LostPetItem
 # from lostpet.items import LostPetItem
-import datetime
+
 
 
 
