@@ -4,6 +4,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import datetime
 
 # Here's where I create the idea of database.
 
@@ -109,8 +110,8 @@ class LostPet(db.Model):
     lost_pet_gender = db.Column(db.String(1), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=True)
     lost_pet_color = db.Column(db.Integer, db.ForeignKey('colors.color_id'), nullable=True)
-    description = db.Column(db.String(500), nullable=True)
-    datetime = db.Column(db.String(100), nullable=True)
+    description = db.Column(db.String(1500), nullable=True)
+    datetime = db.Column(db.TIMESTAMP, default=datetime.datetime.now())
     photo = db.Column(db.String(400), nullable=True)
     latitude = db.Column(db.String(400), nullable=True)
     longitude = db.Column(db.String(400), nullable=True)
@@ -121,17 +122,17 @@ class LostPet(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<LostPet lostpet_id=%s lostpet_name=%s species_code=%s title=%s, description=%s datetime=%s photo=%s latitude=%s, longitude=%s, neighborhood=%s, url=%s>" % (self.lost_pet_id,
-                                                                                                                                                                             self.lost_pet_name,
-                                                                                                                                                                             self.species_code,
-                                                                                                                                                                             self.title,
-                                                                                                                                                                             self.description,
-                                                                                                                                                                             self.datetime,
-                                                                                                                                                                             self.photo,
-                                                                                                                                                                             self.latitude,
-                                                                                                                                                                             self.longitude,
-                                                                                                                                                                             self.neighborhood,
-                                                                                                                                                                             self.url)
+        return (u"<LostPet lostpet_id=%s lostpet_name=%s species_code=%s title=%s, description=%s datetime=%s photo=%s latitude=%s, longitude=%s, neighborhood=%s, url=%s>" % (self.lost_pet_id,
+                                                                                                                                                                               self.lost_pet_name,
+                                                                                                                                                                               self.species_code,
+                                                                                                                                                                               self.title,
+                                                                                                                                                                               self.description,
+                                                                                                                                                                               self.datetime,
+                                                                                                                                                                               self.photo,
+                                                                                                                                                                               self.latitude,
+                                                                                                                                                                               self.longitude,
+                                                                                                                                                                               self.neighborhood,
+                                                                                                                                                                               self.url)).encode('utf-8')
 
     species = db.relationship("Species", backref=db.backref("lostpets"))
     user = db.relationship("User", backref=db.backref("lostpets"))
@@ -190,7 +191,7 @@ def connect_to_db_flask(app):
 
 
 def connect_to_db():
-    engine = create_engine('postgres:///lostpets', echo=False)
+    engine = create_engine('postgres:///lostpets', echo=False, encoding='utf8')
     Session = sessionmaker(bind=engine)
     session = Session()
 

@@ -2,6 +2,7 @@ import scrapy
 from scrapy.contrib.spiders import Rule, CrawlSpider
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from items import LostPetItem
+import datetime
 # from lostpet.items import LostPetItem
 
 
@@ -25,7 +26,8 @@ class PetSpider(CrawlSpider):
     name = "lostpets"
     allowed_domains = ["sfbay.craigslist.org"]
     start_urls = ["https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1",
-                  "https://sfbay.craigslist.org/search/laf?query=cat&lost_and_found_type=1"]
+                  "https://sfbay.craigslist.org/search/laf?query=cat&lost_and_found_type=1"
+                  ]
 
     rules = [
         Rule(SgmlLinkExtractor(allow=[r'.*?/.+?/laf/\d+\.html']), callback='parse_pet', follow=False)]
@@ -36,9 +38,8 @@ class PetSpider(CrawlSpider):
         img = response.xpath('//*[@id="thumbs"]/a/@href').extract()
         description = response.xpath('//*[@id="postingbody"]/text()').extract()
         description = clean_string(description)
-        date_list = response.xpath('//*[@id="display-date"]/time').extract()
-        date_string = date_list[0]
-        date = date_string[32:-27]
+        date_list = response.xpath('//*[@id="display-date"]/time/@datetime').extract()
+        date = datetime.datetime.strptime(date_list[0], "%Y-%m-%dT%H:%M:%S-%f")
 
         mapdata = response.xpath('//*[@id="map"]')
         longitude = None

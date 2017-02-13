@@ -1,0 +1,1174 @@
+/home/vagrant/src/LostPet/lostpet/lostpet/spiders/test.py:2: ScrapyDeprecationWarning: Module `scrapy.contrib.spiders` is deprecated, use `scrapy.spiders` instead
+  from scrapy.contrib.spiders import Rule, CrawlSpider
+/home/vagrant/src/LostPet/lostpet/lostpet/spiders/test.py:3: ScrapyDeprecationWarning: Module `scrapy.contrib.linkextractors` is deprecated, use `scrapy.linkextractors` instead
+  from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+/home/vagrant/src/LostPet/lostpet/lostpet/spiders/test.py:3: ScrapyDeprecationWarning: Module `scrapy.contrib.linkextractors.sgml` is deprecated, use `scrapy.linkextractors.sgml` instead
+  from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+/home/vagrant/src/LostPet/lostpet/lostpet/spiders/test.py:31: ScrapyDeprecationWarning: SgmlLinkExtractor is deprecated and will be removed in future releases. Please use scrapy.linkextractors.LinkExtractor
+  Rule(SgmlLinkExtractor(allow=[r'.*?/.+?/laf/\d+\.html']), callback='parse_pet', follow=False)]
+2017-02-13 01:00:00 [scrapy] INFO: Scrapy 1.0.3 started (bot: lostpet)
+2017-02-13 01:00:00 [scrapy] INFO: Optional features available: ssl, http11
+2017-02-13 01:00:00 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'lostpet.spiders', 'SPIDER_MODULES': ['lostpet.spiders'], 'BOT_NAME': 'lostpet'}
+2017-02-13 01:00:01 [scrapy] INFO: Enabled extensions: CloseSpider, TelnetConsole, LogStats, CoreStats, SpiderState
+2017-02-13 01:00:02 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2017-02-13 01:00:02 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2017-02-13 01:00:02 [scrapy] INFO: Enabled item pipelines: LostPetPipeline
+2017-02-13 01:00:02 [scrapy] INFO: Spider opened
+2017-02-13 01:00:03 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2017-02-13 01:00:03 [scrapy] DEBUG: Telnet console listening on 127.0.0.1:6023
+2017-02-13 01:00:03 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1> (referer: None)
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'stockton.craigslist.org': <GET https://stockton.craigslist.org/laf/5948125184.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'monterey.craigslist.org': <GET https://monterey.craigslist.org/laf/5979138848.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'modesto.craigslist.org': <GET https://modesto.craigslist.org/laf/6000166060.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'sacramento.craigslist.org': <GET https://sacramento.craigslist.org/laf/5999969175.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'merced.craigslist.org': <GET https://merced.craigslist.org/laf/5991286230.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Filtered offsite request to 'goldcountry.craigslist.org': <GET https://goldcountry.craigslist.org/laf/5995764596.html>
+2017-02-13 01:00:03 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/6001058184.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:03 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5991423931.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:03 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5991420423.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:03 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 12, 15, 36, 42, 80000),
+ 'description': u'MISSING!!! Small black dog named Charlie, female. Lost on Friday Feb 3 near Cayuga and Tillamook in South San Jose. She is under 5 pounds and has a white spot on her chest.Please callif you have seen her in the area.',
+ 'img': [],
+ 'latitude': 37.232244,
+ 'longitude': -121.834563,
+ 'neighborhood': u'Tillamook at Cayuga',
+ 'title': u'Lost small black dog',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/6001058184.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Tillamook+at+Cayuga+San+Jose+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+ProgrammingError: (psycopg2.ProgrammingError) relation "lostpets" does not exist
+LINE 2: FROM lostpets
+             ^
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:03 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sfc/laf/5980843931.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:03 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 5, 22, 28, 40, 80000),
+ 'description': u'My Kitty named Blacktop was lost behind the Extended Stay America on Mowry in Newark/Fremont area. I am offering anyone who finds my cat $500.00 for my little girl to be found safe and sound. Please, this is a little house cat, barely a teenager, a scaredy cat who has never been outside, never seen a dog or heard loud noises. She got terrified when a dog charged us and jumped out of the window at the hotel and I ran out to find her and have been looking for her ever since.. Please help me or I am afraid she will die out there. She is little and mostly black with white paws and tiny bit of white on her face. Please call me and I will give you cash if you find her alive and safe.*Lost at Extended Stay America 5375 Farwell Pl, Fremont, CA 94536*',
+ 'img': [u'https://images.craigslist.org/00X0X_23MiqKSg3dZ_600x450.jpg',
+         u'https://images.craigslist.org/00b0b_1klONV950RN_600x450.jpg'],
+ 'latitude': 37.533164,
+ 'longitude': -122.002946,
+ 'neighborhood': u'5375 Farwell Place',
+ 'title': u'$200 Dollar Reward For Lost BLK/WHITE Kitty',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5991423931.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+%35%33%37%35+Farwell+Place+Fremont+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:03 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 5, 22, 20, 53, 80000),
+ 'description': u'My Kitty named Blacktop was lost behind the Extended Stay America on Mowry in Newark/Fremont area. I am offering anyone who finds my cat $200.00 for my little girl to be found safe and sound. Please, this is a little house cat, barely a teenager, a scaredy cat who has never been outside, never seen a dog or heard loud noises. She got terrified when a dog charged us and jumped out of the window at the hotel and I ran out to find her and have been looking for her ever since.. Please help me or I am afraid she will die out there. She is little and mostly black with white paws and tiny bit of white on her face. Please call me and I will give you cash if you find her or can give me any information@!*Lost at Extended Stay America 5375 Farwell Pl, Fremont, CA 94536*',
+ 'img': [u'https://images.craigslist.org/00l0l_fbtQC5hq5Be_600x450.jpg',
+         u'https://images.craigslist.org/00m0m_dcNZkqRFB3V_600x450.jpg',
+         u'https://images.craigslist.org/00C0C_gmTbHHL7cxy_600x450.jpg'],
+ 'latitude': 37.533164,
+ 'longitude': -122.002946,
+ 'neighborhood': u'5375 Farwell Place',
+ 'title': u'$200 Dollar Reward For Lost BLK/WHITE Kitty',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5991420423.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+%35%33%37%35+Farwell+Place+Fremont+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/nby/laf/5964264293.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/5995931822.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5988447762.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/5986762339.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/pen/laf/5999266763.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/pen/laf/5999267137.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/5995823332.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/nby/laf/6000099736.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 1, 29, 12, 16, 2, 80000),
+ 'description': u'" I hold that, the more helpless a creature,  the more entitled it is to protection by man  from the cruelty of man."....Mahatma GandiFor those who have STOLEN a pet, or who have FOUND a pet without reporting him/her to the local shelter or have NOT tried to locate the families of these pets and decided to keep him/her or give them away...which is still considered THEFT....here is something to think about:Imagine, if you have the empathy, what the families of these pets are going through; the heartache, the mental anguish, as well as the financial hardship that they are forced to endure as they scrape together reward money....which MANY on fixed incomes just don\'t have!Of course this is not limited to the humans involved. Keep in mind these frightened and confused animals are suffering as well! PLEASE try to think about what helpless and powerless feels like for these pets who so desperately want to be back with their families!Once you have taken this in realize that it really does come down to you to do the right thing and either take the pet to ANY animal care & control, OR contact the family.Now, imagine if this were to be the last day of your life what actions would you take?For your sake AND the community in which you live I would hope you would engage in several acts of kindness and compassion....AS IF IT\'S THE VERY LAST DAY OF YOUR LIFE!Think about it....it really all comes down to you!Please take these pets to your local animal care & control or contact the families....effortless, no questions asked.If you see a cat, dog, rabbit, wandering about ...don\'t assume the owner is close by....good chance they may be lost and they need to be gotten out of harms way.Start by checking the collar for ID tags and if they really do appear to be lost then take them to a vet or animal hospital to have scanned for a micro-chip....service is free.IN ADDITION if you come across a DECEASED animal PLEASE have the good sense to contact your local animal care and control or if possible take the pet to your local shelter where they can scan for a chip and put the body on ice until the owner is located....again, shelters are the first place most go and not everyone uses social media. IF the shelter is closed a 24/7 emergency pet hosp. would most likely be the place to go as they will cover until the shelter opens.DO NOT think you\'re doing anyone any favors by leaving the pet at a curb thinking the owner will find him/her.I think most would agree that 2016 has been one awful year and we all need a little compassion and kindness.Lets all try to do our part in helping one another through these times.Blessings!',
+ 'img': [],
+ 'latitude': 37.7509,
+ 'longitude': -122.4153,
+ 'neighborhood': [],
+ 'title': u'PLEASE READ: ATTENTION PET THIEVES (everywhere)',
+ 'url': 'https://sfbay.craigslist.org/sfc/laf/5980843931.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5997090019.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5984323682.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5992216452.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sfc/laf/5997298907.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5984323451.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5995698222.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5993015452.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5995748457.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 1, 17, 23, 22, 50, 80000),
+ 'description': u'Lost small dog: "Tiny"Pomeranian, (SPAYED) female, brown sable color.URGENT MEDICAL NEEDS: anemic, seizures, needs a blood transfusion!!!WAS NOT WEARING HER COLLAR & TAGS when she disappeared.Went missing sometime during the weekend of 11/18/16 to 11/20/16, while with a sitter.$$$ Offering a generous CASH REWARD ($1,000) for her safe return. NO QUESTIONS ASKED!! We just want her home.Also offering a reward for any information leading to her safe return.Please phone/text/email if you have her or know where she is.If you wish to REMAIN ANONYMOUS, that is ok- you can just drop her off at a veterinarian\'s office, a 24 hour pet emergency hospital, or a shelter (and we\'d arrange it so that you\'d still get the reward).Thank you.',
+ 'img': [u'https://images.craigslist.org/00P0P_7wQAoGCKr8R_600x450.jpg',
+         u'https://images.craigslist.org/01515_2UkP6tPkN9M_600x450.jpg',
+         u'https://images.craigslist.org/00303_iA4YmLoLz3m_600x450.jpg',
+         u'https://images.craigslist.org/00p0p_cZewatkWTr9_600x450.jpg',
+         u'https://images.craigslist.org/00O0O_4ATv2YAKQTn_600x450.jpg'],
+ 'latitude': 38.2507,
+ 'longitude': -122.6155,
+ 'neighborhood': [u' (petaluma)'],
+ 'title': u'$1,000 REWARD! Missing/Lost Pomeranian, Brown, Female',
+ 'url': 'https://sfbay.craigslist.org/nby/laf/5964264293.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 9, 1, 54, 36, 80000),
+ 'description': u'We lost our cat Deedee since July 6 Wed. night. On ( Manhattan Pl ) and Brown St. Santa Clara Cross streets are Bowers and Monroe about 4 blocks from Wilcox HS.She is about 6 years old, grey hair, short to medium length hair. She is a indoor & out door cat. She is Micro Chipped. In the picture she has a collar, she does not have one on now. She has never been gone more than a day.We all love her and miss her very much including here close companion Dexter my dog. They are both of the same age and grew up and played together. Please help Deedee comes back home! Please contact me if you have seen her or have her. We love and miss her very much! So if you know anything or have seen her please contact me.Will offer a reward if found.',
+ 'img': [u'https://images.craigslist.org/00404_jiQtKcJ7t0q_600x450.jpg',
+         u'https://images.craigslist.org/00R0R_eDk8qGdsq1T_600x450.jpg',
+         u'https://images.craigslist.org/01616_6qGXQjM2JRq_600x450.jpg',
+         u'https://images.craigslist.org/00m0m_1mkxSLrdUNE_600x450.jpg',
+         u'https://images.craigslist.org/00101_f6gPK7dbOEJ_600x450.jpg'],
+ 'latitude': 37.363741,
+ 'longitude': -121.978569,
+ 'neighborhood': u'Manhattan Pl at Brown/Kearny/Amethyst,Bowers/Monroe',
+ 'title': u'Missing / Lost Female Grey Cat',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/5995931822.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Manhattan+Pl+at+Brown%2FKearny%2FAmethyst%2CBowers%2FMonroe+Santa+Clara+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 3, 15, 8, 51, 80000),
+ 'description': u'Please keep a street eye out for this extremely short but long, spayed female Chihuahua, which was taken in/STOLEN by a woman a year ago - without first being properly reported to the Pinole or Berkeley shelters!  She dashed off because of an uncontrolled Pit Bull pup that got loose at Pt. Isabel\'s main parking lot January 18, 2016 p.m.!  She was not microchipped then, but the THIEF who refused to return her, as confirmed via a 4th party, has likely chipped her as her own, rather than go and adopt/save a shelter dog in true need.  Ella belongs back home with us in Richmond N & E.  Please help keep an eye out for her, not online, but when you are out an about!She has a thick blended black and tan (sable) coat with a partial cream chest and a distinct, sharp lines making up her face mask. She is NOT solid black and tan. Her legs are only approx. 5" long. Her lower legs and paws are all tan with all black nails. The back side of her lower hind legs have some light black coloring, but her hind side is otherwise mostly tan.  She has a bushy tail that typically stands up with a slight bend.Her last valid reported sighting was along Pierce Street, and also by Central Ave/Carlson in Albany, on approx. 01/20/16, before she was dognapped at the Berkeley/El Cerrito border.  If you should spot her, please send a photo of her, particularly with her walking thief, so called parent, and location information.  Thank you!',
+ 'img': [u'https://images.craigslist.org/00m0m_7Jx8xX5kVn7_600x450.jpg',
+         u'https://images.craigslist.org/01616_g5yyxrZ9MsO_600x450.jpg'],
+ 'latitude': 37.901407,
+ 'longitude': -122.306838,
+ 'neighborhood': [],
+ 'title': u'STOLEN-lost short Chihuahua mix, sable, black tri-color, female!',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5988447762.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 2, 12, 35, 28, 80000),
+ 'description': u'I AM NOT GIVING UP UNTIL YOGI RETURNS~ On Thanksgiving of 2008, someone broke into my home and stole my dog, "Yogi" who is a Yorkshire Terrier. He is black and gold with silver on top of his head. He is micro-chipped, a blue collar and ID tag. He is male/neutered, weighs approximately 7 pounds two ounces, and his tail is docked. I am offering a $1,000 reward for his safe return no questions asked. If you have any information please respond to this ad.',
+ 'img': [],
+ 'latitude': 37.3764,
+ 'longitude': -122.0238,
+ 'neighborhood': [],
+ 'title': u'Stolen Yorkshire Terrier (Yorkie) $1,000 Reward',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/5986762339.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/nby/laf/5999253327.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5992258675.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5994897089.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/5997324856.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5990103772.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/eby/laf/5999535824.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/sby/laf/6000966527.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] DEBUG: Crawled (200) <GET https://sfbay.craigslist.org/pen/laf/6000010926.html> (referer: https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1)
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 9, 51, 38, 80000),
+ 'description': u'Hello EVERYONE I LOST MY BEST FRIEND MIJO HE IS A TAN CHIHUAHUA  WITH RED COLLAR NO NAME TAG HE WAS LAT SEEN BY SPRING AND WOODSIDE RD ON 02-08-07 IN THE MORNING .PLEASE GIVE MY DOGGY BACK ...OR ANY INFO   REWARD WHO FINDS MY DOG MIJO',
+ 'img': [],
+ 'latitude': 37.4647,
+ 'longitude': -122.2304,
+ 'neighborhood': u'SPRING at woodside rd',
+ 'title': u'LOST MY MIJO [TAN-Chihuahua???',
+ 'url': 'https://sfbay.craigslist.org/pen/laf/5999266763.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+SPRING+at+woodside+rd+Redwoodcity+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 9, 51, 50, 80000),
+ 'description': u'hello i lost my dog mijo he is a Chihuahua tan color very sweet hes not a barker he is very sweet please  if anybody has any info they will be a reward for finding my dog or any info please call craig he was lost on Wednesday 8,2017',
+ 'img': [],
+ 'latitude': 37.4647,
+ 'longitude': -122.2304,
+ 'neighborhood': u'spring st at woodside rd',
+ 'title': u'lost tan chiuahua',
+ 'url': 'https://sfbay.craigslist.org/pen/laf/5999267137.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+spring+st+at+woodside+rd+Redwoodcity+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 8, 21, 2, 20, 80000),
+ 'description': u'We lost our cat Deedee since July 6 Wed. night. On ( Manhattan Pl ) and Brown St. Santa Clara Cross streets are Bowers and Monroe about 4 blocks from Wilcox HS.She is about 6 years old, grey hair, short to medium length hair. She is a indoor & out door cat. She is Micro Chipped. In the picture she has a collar, she does not have one on now. She has never been gone more than a day.We all love her and miss her very much including here close companion Dexter my dog. They are both of the same age and grew up and played together. Please help Deedee comes back home! Please contact me if you have seen her or have her. We love and miss her very much! So if you know anything or have seen her please contact me.Will offer a reward if found.',
+ 'img': [u'https://images.craigslist.org/00404_jiQtKcJ7t0q_600x450.jpg',
+         u'https://images.craigslist.org/00R0R_eDk8qGdsq1T_600x450.jpg',
+         u'https://images.craigslist.org/01616_6qGXQjM2JRq_600x450.jpg',
+         u'https://images.craigslist.org/00m0m_1mkxSLrdUNE_600x450.jpg',
+         u'https://images.craigslist.org/00101_f6gPK7dbOEJ_600x450.jpg'],
+ 'latitude': 37.363741,
+ 'longitude': -121.978569,
+ 'neighborhood': u'Manhattan Pl at Brown/Kearny/Amethyst,Bowers/Monroe',
+ 'title': u'Missing / Lost Female Grey Cat',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/5995823332.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Manhattan+Pl+at+Brown%2FKearny%2FAmethyst%2CBowers%2FMonroe+Santa+Clara+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 22, 7, 6, 80000),
+ 'description': u'My little girl has been lost since 08/25/16.  I will give a reward for her "Safe" return.Please Read:While I know there is a possibility somebody has her, I also think there is a good chance she is out there roaming free, going undetected, because she is a small dog and she will hide.  She could be on someone\'s property and you wouldn\'t even know she was there. She is not a barker.  Please take a moment to check if possible!!  Finding this little girl again is the world to me.If you have a dog that might be my missing little girl, send me a picture of her to help confirm whether or not it\'s her, I get her back safely,  and I will double the reward, no questions asked.The last sightings of her was on San Miguel off Hopper and a different sighting on Barnes Rd off Hopper.  She seems to come out, in the afternoon, around 4 pm.  The latest sighting was the one on Barnes Rd which was on Monday, 1/16/17.The previous sightings of her was in late December, on Woolsey Rd, behind the wineries.  She was seen by several different people on the side of the road but took off when people tried to get close.  If you see her during the day please contact me or contact Animal Control and if possible keep her in your sight.  Just please do not try to approach her.Before that the sighting was off Fulton Rd, and before that it was the  Brompton Ave & Francisco Ave area.***If you see a dog that you think might be her, please take a picture and send it the phone number listed if possible with the location and your name.  She does not have a leash on, and if you try to come to close, she will run. She will not try to get close to another animal.  ****She is listed on Josie\'s Lost Dog of Sonoma CountyShe is a very special little girl. I love her so much and life has been very difficult since she\'s been gone.  All we want is for her to be home.Until I get her back, her post will remain up.*Note*  I have signs up all over, and I will probably put more up, but, I promise to take each and every one down once she is found and home.  I appreciate everybody\'s patience.Sonoma County Animal Services:9-5 Tuesday - SaturdayCA Relay Services:  711Sonoma Humane SocietyAnd, if you found a lost animal after hours, you can take it to:PetCare  2425 Mendocino Ave  Santa Rosa, CA 95403',
+ 'img': [u'https://images.craigslist.org/00Z0Z_iRKC3PEIdwL_600x450.jpg',
+         u'https://images.craigslist.org/00K0K_i1oFmRPTJlH_600x450.jpg',
+         u'https://images.craigslist.org/00R0R_iEcqYOEHjGv_600x450.jpg'],
+ 'latitude': None,
+ 'longitude': None,
+ 'neighborhood': [u' (santa rosa)'],
+ 'title': u'**REWARD**',
+ 'url': 'https://sfbay.craigslist.org/nby/laf/6000099736.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 9, 17, 39, 3, 80000),
+ 'description': u"Please help us find this lost dog.Female, White with brown spotsTerrier mixShe's scared, but very sweet.She was spayed very recently, and still has her stitches.If you have any leads please contact meOr Antioch Animal ServicesThank You!!!",
+ 'img': [u'https://images.craigslist.org/00s0s_ca0TcwbEdfX_600x450.jpg',
+         u'https://images.craigslist.org/00G0G_clNRldOdi1e_600x450.jpg'],
+ 'latitude': 37.968764,
+ 'longitude': -121.780958,
+ 'neighborhood': u'Horseshoe Circle Area at Laurel',
+ 'title': u'Lost Female Terrier',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5997090019.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Horseshoe+Circle+Area+at+Laurel+Antioch+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 1, 31, 18, 39, 19, 80000),
+ 'description': u'Lost German shepherd female named schatzi on dec 22 in Antioch area.  Reward for safe return.',
+ 'img': [],
+ 'latitude': 37.9939,
+ 'longitude': -121.8089,
+ 'neighborhood': [u' (pittsburg / antioch)'],
+ 'title': u'Lost German shepherd dog $2500 reward',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5984323682.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 6, 11, 55, 53, 80000),
+ 'description': u"Lucy is a pug corgy mix that escaped the front yard on Friday Jan 13th. We live on Foothill Blvd and 55th ave. We have three dogs and a toddler. While grandma was playing in the yard with our daughter, Lucy snuck  out of the gate undetected.She is 10 years old and has a shy personality. You can try calling her, but if she won't come willingly, I wouldn't approach as she'll take off! Please let us know so we can have an idea of where to look. She is microchipped but wasnt wearing her collar. She and our cat wrestle and the claws kept catching on the collar so we took it off.  By now, she could be anywhere! Any help would be greatly appreciated!",
+ 'img': [],
+ 'latitude': 37.772428,
+ 'longitude': -122.195878,
+ 'neighborhood': u'Foothill blvd at 55Th ave',
+ 'title': u'Lost small tan dog near Maxwell park',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5992216452.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Foothill+blvd+at+%35%35Th+ave+Oakland+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 9, 22, 34, 55, 80000),
+ 'description': u'Still lost: LOST since 1/9/17: female, 2 yr. old Dutch Shepherd (fur pattern: shorthaired brindle, colors: brown/black). Spayed and microchipped. Responds best to whistling. She can jump tall fences so, if found, please keep leashed until claimed.',
+ 'img': [u'https://images.craigslist.org/00v0v_dIh7kgjvlqY_600x450.jpg',
+         u'https://images.craigslist.org/01111_74CbACa14dv_600x450.jpg'],
+ 'latitude': 38.579405,
+ 'longitude': -121.548967,
+ 'neighborhood': u'West Capitol Ave. at Harbor Blvd.',
+ 'title': u'REWARD!!! LOST DOG: Dutch Shepherd',
+ 'url': 'https://sfbay.craigslist.org/sfc/laf/5997298907.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+West+Capitol+Ave%2E+at+Harbor+Blvd%2E+West+Sacramento+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 1, 31, 18, 39, 4, 80000),
+ 'description': u'Lost my GERMAN Shepherd Dog 12/22/16, several weeks ago , will pay $2500 for her safe return.  Plz try to think of any friends or neighbors who might have gotten a young adult female shepherd around Christmas.   If u have heard anything at all plz call me 24/7',
+ 'img': [],
+ 'latitude': 38.012121,
+ 'longitude': -121.813967,
+ 'neighborhood': [u' (pittsburg / antioch)'],
+ 'title': u'LOST GERMAN SHEPHERD! REWARD $2500',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5984323451.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 8, 18, 25, 39, 80000),
+ 'description': u'Missing a light brown very fluffy Pomeranian. Went missing tonight at 5:30pm around 98 and thermal. MacArthur area. The dog is old and c ant hear and can barely see. I am offering a reward for any information leading to the whereabouts of my dog. The dogs name is "smoothie the poochie". She has no teeth, and doesn\'t have much time left to live. Any information helps. Please call/text My name\'s Sheila. Thanks for your time.',
+ 'img': [],
+ 'latitude': 37.7641,
+ 'longitude': -122.1633,
+ 'neighborhood': [u' (oakland east)'],
+ 'title': u'Missing brown Pomeranian',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5995698222.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 7, 2, 57, 38, 80000),
+ 'description': u'$500 Reward to the Hero Who helps us bring Our Precious Little Dog Home!We are so distraught that our precious little 10 year-old female Chihuahua is still not home with us. The rains continue to pour and we are all the more worried and frightened that we haven\'t received any news of her whereabouts. We check the shelters and online lost & found sites daily, we\'ve distributed hundreds of flyers and posters, we\'ve posted to Craiglist and hired numerous tracking and alert services - with zero success so far.  But perhaps YOU hold the key to finding her and you are reading this at just the right time!WE ARE OFFERING A $500 REWARD for any information that will lead to her return home. If you have ANY Information that might help us, please contact us as soon as possible - you will be our HERO FOREVER if your help leads Minette back to us!We still cling to the hope that some well-meaning person has taken her in during all the stormy weather and is planning to bring her to a vet or shelter to read her chip, or is actively looking for information about the lost treasure they found whose owners must most certainly be frantically fretting about.Or maybe someone took her in and fell so in love with her that they just couldn\'t help themselves from holding onto her. For that someone, we hope they will eventually see this ad and realize how much we have grown to love her over the years and how irreplaceable she is to us. We hope that person will see this ad and have a change of heart.Maybe you know someone who has recently come into possession of a new little dog that looks like Minette, or you\'ve seen someone walking a dog that fits her description. If so, please text us a picture. Any lead that you think might help us will be appreciated enormously!As I have written before, Minette was last seen just as a heavy rain settled over Albany for the evening, in the 900 block of Stannage Ave. - about 1 \xbd blocks from the Albany Twin theater. She did not have her collar or tags at the time, but she was wearing a dark gray vest (a "Thunder Shirt"). A couple of possible nearby sightings keep us hopeful that she is still in the area.She is beige/tan/light brown, is spayed, and has a chip.. She is about 9 years old, and weighs about 10 lbs. She needs dental work (dental surgery was already scheduled), she has ongoing skin allergies, and is now a week behind on her meds.A few pictures are attached. Please help bring Minette back home to Simone and me. We are so lonely without her and miss her terribly.A $500 reward will be offered for her return - no explanations necessary - we just want our little girl home where she is missed and so adored.THANK YOU!',
+ 'img': [u'https://images.craigslist.org/00g0g_keVOL8DIXFk_600x450.jpg',
+         u'https://images.craigslist.org/00d0d_gaXSbo1hkzG_600x450.jpg',
+         u'https://images.craigslist.org/00m0m_kQmqg7iLNQk_600x450.jpg',
+         u'https://images.craigslist.org/00P0P_8cP463mqn6d_600x450.jpg',
+         u'https://images.craigslist.org/00y0y_9LdlS6OOR9u_600x450.jpg',
+         u'https://images.craigslist.org/00v0v_hZiYInldRnW_600x450.jpg',
+         u'https://images.craigslist.org/00i0i_8NN7dMgd0QD_600x450.jpg',
+         u'https://images.craigslist.org/00O0O_7VNfWAW0Ky9_600x450.jpg',
+         u'https://images.craigslist.org/00S0S_fPa9PkBeULZ_600x450.jpg'],
+ 'latitude': 37.888436,
+ 'longitude': -122.296157,
+ 'neighborhood': u'Stannage Avenue at Solano and Marin Avenues',
+ 'title': u'$500 Reward - Lost Female tan/beige Chihuahua',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5993015452.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Stannage+Avenue+at+Solano+and+Marin+Avenues+Albany+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 8, 19, 21, 10, 80000),
+ 'description': u'My dog Dubbie has been missing for 5 days nowPlease call me if you see him',
+ 'img': [],
+ 'latitude': 38.0031,
+ 'longitude': -121.9172,
+ 'neighborhood': [u' (pittsburg / antioch)'],
+ 'title': u'Lost pomeranian/ Chihuahua mix please help',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5995748457.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 9, 43, 59, 80000),
+ 'description': u"Bentley got out last night around 8pm. Front door didn't latch. He is a foster that is in need of medicine. Trying to get him healthy so he can find his forever home. Please keep your eyes out. ThanksDan",
+ 'img': [],
+ 'latitude': 38.409112,
+ 'longitude': -122.729298,
+ 'neighborhood': u'Dutton Meadow at Maureen',
+ 'title': u'Lost Bullie Dog on Dutton Meadow',
+ 'url': 'https://sfbay.craigslist.org/nby/laf/5999253327.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Dutton+Meadow+at+Maureen+Santa+Rosa+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 6, 12, 20, 44, 80000),
+ 'description': u"$1000 Reward for the return of my dogStill looking for by Aussie Shepherd Mix. He's 70lb 2 yrs old, fixed, with a red collar with tags. Please contact me if you have any sightings of him.Last seen on Saturday 2/4/17 1130 running north on southbound side of Hwy 13 in the center divide. He could be in San Leandro, up in the Oakland hills or below hwy 13All info would be greatly appreciated..Thank you so much.I'm completely heartbroken",
+ 'img': [],
+ 'latitude': 37.792422,
+ 'longitude': -122.18359,
+ 'neighborhood': u'Carson St at Hwy 13',
+ 'title': u'Lost Australian Shepherd Mix Dog',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5992258675.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Carson+St+at+Hwy+%31%33+oakland+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 8, 9, 11, 20, 80000),
+ 'description': u'loss date 1-12-16Name of Dog is WonBreed Pitbull Mix 35 to 50 lbs femaleTan in coloreyes BrownDescriprtion Floppy Ears, Long Tail,White spot on Chest , slenderPlease contact Bob @Thank You',
+ 'img': [],
+ 'latitude': 37.950923,
+ 'longitude': -122.332681,
+ 'neighborhood': u'13900 san pablo ave',
+ 'title': u'lost pitbull mix dog',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5994897089.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+%31%33%39%30%30+san+pablo+ave+san+pablo+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 9, 23, 52, 56, 80000),
+ 'description': u"Female Black lab mix, 4 years old, 35 pounds and is named Frida. She is extremely friendly, but could be a little afraid.She has been recently sighted at Woolsey & Bowdoin in Portola, around Burton High School and in the McLaren dog park.If you see her, please don't chase her - text a picture with location and callThank you!",
+ 'img': [],
+ 'latitude': 37.7725,
+ 'longitude': -122.4147,
+ 'neighborhood': u'Hamilton &amp; Woolsey',
+ 'title': u'Lost Female Small Black Lab Mix Dog - ***$1,000 Reward***',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/5997324856.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Hamilton+%26amp%3B+Woolsey+San+Francisco+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 4, 19, 9, 55, 80000),
+ 'description': u"Please help me find my dog BLUE. He's my best-friend. He bolted out the door when the dog walker arrived 1 week ago today 2-4-17.LAST SEEN- 2/6/17 running up Geranium Place at Mountain Blvd. This isn't far from his home so I'm hoping he was hiding in the hills above near Leona Lodge, Leona Canyon, Merritt College or Leona Open Space.He has a chip. He's wearing a red collar with his name and my numbers.If you see him please callor take him home. He's so sweet and I'm sure he is terrified.Thank you so muchAlicia Justice",
+ 'img': [u'https://images.craigslist.org/00r0r_jKGV7HDXDMZ_600x450.jpg',
+         u'https://images.craigslist.org/00I0I_6GTNupYB75_600x450.jpg',
+         u'https://images.craigslist.org/00A0A_1pJBi2EZiRh_600x450.jpg'],
+ 'latitude': 37.795644,
+ 'longitude': -122.181809,
+ 'neighborhood': u'Geranium Place at Mountain Blvd',
+ 'title': u'Lost Australian Shepherd Mix Dog',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5990103772.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Geranium+Place+at+Mountain+Blvd+oakland+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 12, 33, 17, 80000),
+ 'description': u"Lost dog! Went missing in Hayward area. He's a 10 year old black Pomeranian with respiratory issues. Please help us find him. Reward will be given if returned.Thank you,Anish",
+ 'img': [u'https://images.craigslist.org/00P0P_9K9F1jCsIQs_600x450.jpg',
+         u'https://images.craigslist.org/00s0s_bXjQFaXydiz_600x450.jpg'],
+ 'latitude': None,
+ 'longitude': None,
+ 'neighborhood': [u' (hayward / castro valley)'],
+ 'title': u'Lost Dog small Pom',
+ 'url': 'https://sfbay.craigslist.org/eby/laf/5999535824.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 12, 14, 22, 58, 80000),
+ 'description': u'Missing dog, jack Russell, white body, brown face, 11 years old. Name - Rhett.If found please call Corey',
+ 'img': [],
+ 'latitude': 37.289942,
+ 'longitude': -122.01397,
+ 'neighborhood': u'Candy Ct at Miller AVE',
+ 'title': u'Missing Dog - White Jack Russel',
+ 'url': 'https://sfbay.craigslist.org/sby/laf/6000966527.html',
+ 'url_google': [u'https://maps.google.com/?q=loc%3A+Candy+Ct+at+Miller+AVE+Saratoga+CA+US']}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] ERROR: Error processing {'date': datetime.datetime(2017, 2, 11, 19, 40, 4, 80000),
+ 'description': u'Hello:  My name is Mojo (white color) and I am still looking for my brother (Tan/White Spots) who was lost on 15 Nov 2013 in Menlo Park area (nearby Stanford Linear Accelerator Center {SLAC}).  Max was found by a nearby hotel security guard but then ran away within the hour (left his collar with name tag).  Max was seen by the local residents and reported to animal control during the week of 15-20Nov2013; however, animal control was not able to catch him.  If found, please contact me with a current picture of Max and an award will be settled. Thank you for your help. v/r MojoUPDATES: still looking for Max.  On 4Dec2015, i was notified that Max had been seen on Alamo Way in Pittsburg, CA area for about two weeks.  I also got multiple digital pics of this "lost" dog with similar built/hair outlines like Max.  I made a 19hrs/950 miles trip with a 80% confidence of Max return.  un(Fortunately), I ended up having a new dog instead of Max return.  This dog was not neutered!',
+ 'img': [u'https://images.craigslist.org/00k0k_fNCS2Rd2m28_600x450.jpg',
+         u'https://images.craigslist.org/01616_al7hxnEANUP_600x450.jpg'],
+ 'latitude': 37.4396,
+ 'longitude': -122.1864,
+ 'neighborhood': [u' (menlo park)'],
+ 'title': u'LOST DOG: REWARD $$$$',
+ 'url': 'https://sfbay.craigslist.org/pen/laf/6000010926.html',
+ 'url_google': None}
+Traceback (most recent call last):
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/twisted/internet/defer.py", line 651, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/home/vagrant/src/LostPet/lostpet/lostpet/pipelines.py", line 29, in process_item
+    urls = self.session.query(LostPet.url).all()
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2398, in all
+    return list(self)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2515, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2530, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 914, in execute
+    return meth(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1010, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1146, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1339, in _handle_dbapi_exception
+    exc_info
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 199, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_context
+    context)
+  File "/home/vagrant/src/LostPet/env/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 442, in do_execute
+    cursor.execute(statement, parameters)
+InternalError: (psycopg2.InternalError) current transaction is aborted, commands ignored until end of transaction block
+ [SQL: 'SELECT lostpets.url AS lostpets_url \nFROM lostpets']
+2017-02-13 01:00:04 [scrapy] INFO: Closing spider (finished)
+2017-02-13 01:00:04 [scrapy] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 9304,
+ 'downloader/request_count': 29,
+ 'downloader/request_method_count/GET': 29,
+ 'downloader/response_bytes': 157540,
+ 'downloader/response_count': 29,
+ 'downloader/response_status_count/200': 29,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2017, 2, 13, 1, 0, 4, 641345),
+ 'log_count/DEBUG': 36,
+ 'log_count/ERROR': 28,
+ 'log_count/INFO': 7,
+ 'offsite/domains': 6,
+ 'offsite/filtered': 72,
+ 'request_depth_max': 1,
+ 'response_received_count': 29,
+ 'scheduler/dequeued': 29,
+ 'scheduler/dequeued/memory': 29,
+ 'scheduler/enqueued': 29,
+ 'scheduler/enqueued/memory': 29,
+ 'start_time': datetime.datetime(2017, 2, 13, 1, 0, 3, 34484)}
+2017-02-13 01:00:04 [scrapy] INFO: Spider closed (finished)

@@ -26,13 +26,14 @@ class LostPetPipeline(object):
     def process_item(self, item, spider):
 
         urls = self.session.query(LostPet.url).all()
+
         if item["url"] not in urls:
             url = item["url"]
-            description = item["description"]
+            description = item["description"].decode("utf-8")
             datetime = item["date"]
             latitude = item["latitude"]
             longitude = item["longitude"]
-            title = item["title"]
+            title = item["title"].decode("utf-8")
             img = item["img"]
             neighborhood = item["neighborhood"]
             photo = None
@@ -43,10 +44,12 @@ class LostPetPipeline(object):
             if type(neighborhood) == list and len(neighborhood) != 0:
                 neighborhood = neighborhood[0]
 
-            if "dog" in item["title"]:
+            if "dog" in item["description"] or "dog" in item["title"]:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
-            else:
+            elif "cat" in item["description"] or "cat" in item["title"]:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'cat').one()
+            else:
+                return
 
             pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
 
