@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DEV Bootstrap Google Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet" media="screen">
+ 
+    <style>
+        html { height: 100% }
+        body { height: 100% }
+        #map-container { height: 100%}
+</style>
+
+</head>
+<body onload="initMap()">
+    <div id="map-container" class="col-md-6"></div>
+ 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDNr7_4mExAVJZgp7MQpFTicSOb7SmRag&callback=initMap"></script>
+    <script type="text/javascript" src="static/custom.js"></script>
+</body>
+</html>

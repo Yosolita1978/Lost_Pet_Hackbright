@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, render_template, make_response, abort
+from flask import Flask, request, render_template, make_response, abort, jsonify
 from model import connect_to_db_flask, db, Species, User, Breed, Color, LostPet
 from datetime import datetime
 from sqlalchemy import desc
@@ -26,7 +26,7 @@ app = Flask(__name__)
 # ]
 
 
-@app.route('/lostpets/api/lostpets', methods=['GET'])
+@app.route('/lostpets/api/lostpets.json', methods=['GET'])
 def get_pets():
     """Return info about pets as JSON."""
 
@@ -49,13 +49,14 @@ def get_pets():
 
     pets_list = []
     for pet in pets:
+
         pet_dict = {
             "lostpet_id": pet.lost_pet_id,
             "lostpet_name": pet.lost_pet_name,
             "species_code": pet.species_code,
             "title": pet.title,
             "description": pet.description,
-            "datetime": pet.datetime,
+            "datetime": datetime.strftime(pet.datetime, "%Y-%m-%d"),
             "photo": pet.photo,
             "latitude": pet.latitude,
             "longitude": pet.longitude,
@@ -65,7 +66,9 @@ def get_pets():
         }
         pets_list.append(pet_dict)
 
-    return json.dumps(pets_list, indent=4, sort_keys=True, default=str)
+    pets = {"result": pets_list}
+
+    return jsonify(pets)
 
 
 @app.route('/lostpets/api/species', methods=['GET'])
@@ -153,12 +156,18 @@ def create_pet():
     return json.dumps(newpet_dict, indent=4, sort_keys=True, default=str)
 
 
-
 @app.errorhandler(404)
 def not_found(error):
     """ Return a json with the error to be able to handle this """
 
     return make_response(json.dumps({'error': 'Not found'}), 404)
+
+
+@app.route('/')
+def show_map():
+    """Show map."""
+
+    return render_template("home.html")
 
 
 if __name__ == "__main__":

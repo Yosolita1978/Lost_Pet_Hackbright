@@ -39,10 +39,10 @@ var Profile = React.createClass({
     render: function(){
         return(
             <div>
-                <h5>{this.props.title}</h5>
-                <p>{this.props.description}</p>
-                <span>{this.props.species}</span>
-                <span>{this.props.id}</span>
+                <h2>Title:<stronger>{this.props.title}</stronger></h2>
+                <p>Description: {this.props.description}</p>
+                <p>Species: {this.props.species}</p>
+                <p>Id: {this.props.id}</p>
                 <img src={this.props.imgURL} />
                 <br></br>
             </div>
