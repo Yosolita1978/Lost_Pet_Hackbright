@@ -3,8 +3,10 @@ from flask import Flask, request, render_template, make_response, abort, jsonify
 from model import connect_to_db_flask, db, Species, User, Breed, Color, LostPet
 from datetime import datetime
 from sqlalchemy import desc
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 #http://localhost:5000/lostpets/api/lostpets
@@ -24,7 +26,6 @@ app = Flask(__name__)
 #         "url": "https://sfbay.craigslist.org/nby/laf/5995666386.html",
 #     }
 # ]
-
 
 @app.route('/lostpets/api/lostpets.json', methods=['GET'])
 def get_pets():
@@ -79,11 +80,12 @@ def get_species():
 
     species_list = []
     for s in species:
-        species_dict = {
-            "species_code": s.species_code,
-            "name": s.name
-        }
-        species_list.append(species_dict)
+        if len(s.lostpets) != 0:
+            species_dict = {
+                "species_code": s.species_code,
+                "name": s.name
+                }
+            species_list.append(species_dict)
 
     return json.dumps(species_list, indent=4, sort_keys=True, default=str)
 

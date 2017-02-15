@@ -69,6 +69,6 @@ function bindInfoWindow(marker, map, infoWindow, html) {
   }
 
 }
-// debugger;
+
 // google.maps.event.addDomListener(window, 'load', initMap);
-// debugger;
+

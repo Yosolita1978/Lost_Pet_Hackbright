@@ -22,7 +22,8 @@ def clean_string(list_string):
 
 class PetSpider(CrawlSpider):
 
-    # ITEM_PIPELINES = {'lostpets.pipelines.LostPetPipeline': 100}
+    # "https://sfbay.craigslist.org/search/laf?query=cat&lost_and_found_type=1"
+
     name = "lostpets"
     allowed_domains = ["sfbay.craigslist.org"]
     start_urls = ["https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1",

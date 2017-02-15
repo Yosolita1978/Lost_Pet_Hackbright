@@ -13,10 +13,12 @@ def load_species():
 
     dog = Species(name="dog", species_code="d")
     cat = Species(name="cat", species_code="c")
+    other = Species(name="other", species_code="o")
 
     # We need to add to the session or it won't ever be stored
     db.session.add(dog)
     db.session.add(cat)
+    db.session.add(other)
 
     # Once we're done, we should commit our work
     db.session.commit()
