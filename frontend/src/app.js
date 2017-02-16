@@ -33,19 +33,15 @@ class LostPetList extends React.Component{
 }
 
 
-// fetch('http://127.0.0.1:5000/lostpets/api/lostpets.json').then(function (response){
-//     return response.json();
-// }).then(function (data) {
-//     ReactDOM.render(<LostPetList pets={data.result}/>, document.getElementById('list'));;
-// });
-
-
 
 class LostPetFilters extends React.Component{
     constructor(props){
         super(props);
-        this.state = {species_code: null};
+        this.state = {species_code: null,
+                      value: ""};
         this.onSpeciesSelected = this.onSpeciesSelected.bind(this);
+        this.onValueChanged = this.onValueChanged.bind(this);
+        this.onSubmitText = this.onSubmitText.bind(this);
     }
 
     onSpeciesSelected(event){
@@ -53,6 +49,21 @@ class LostPetFilters extends React.Component{
         var species_code = event.target.value;
         this.setState({species_code: species_code});
         this.props.onFilterChanged({species_code: species_code});
+
+    }
+
+    onValueChanged(event){
+        console.log(event.target.value);
+        //event.preventDefault();
+        var text_search = event.target.value;
+        this.setState({value: text_search});
+        //this.props.onFilterChanged({value: text_search});
+
+    }
+
+    onSubmitText(event){
+        event.preventDefault();
+        this.props.onSearch(this.state.value);
 
     }
 
@@ -75,7 +86,15 @@ class LostPetFilters extends React.Component{
         }
 
         return ( 
-            <div> { speciesButtons } </div>
+            <form onSubmit={this.onSubmitText}> 
+                { speciesButtons }
+                <label htmlFor='text_search'>Search</label>
+                <input type='text'
+                       id='text_search'
+                       value={this.state.value}
+                       placeholder='Please enter a Keyword'
+                       onChange={this.onValueChanged} />
+            </form>
         );
     }
 }
@@ -88,7 +107,8 @@ class App extends React.Component{
             species: [],
             pets: []
         };
-        this.onFilterChanged = this.onFilterChanged.bind(this)
+        this.onFilterChanged = this.onFilterChanged.bind(this);
+        this.SearchByText = this.SearchByText.bind(this);
     }
 
     componentDidMount(){
@@ -111,63 +131,26 @@ class App extends React.Component{
         });
     }
 
+    SearchByText(search){
+        var text_search = search;
+        console.log(text_search);
+        var self = this;
+        //http://localhost:5000/lostpets/api/lostpets.json?text_search=dog+small
+        fetch('http://127.0.0.1:5000/lostpets/api/lostpets.json?text_search='+ text_search).then(function (response){
+            return response.json();
+        }).then(function (data) {
+            self.setState({pets: data.result});
+        });
+    }
+
+
     render(){
         return (
             <div>
-                <LostPetFilters species={this.state.species} onFilterChanged={this.onFilterChanged}/>
+                <LostPetFilters species={this.state.species} onFilterChanged={this.onFilterChanged} onSearch={this.SearchByText}/>
                 <LostPetList pets={this.state.pets}/>
             </div>)
     }
 }
 
 ReactDOM.render(<App/>, document.getElementById("app"));
-
-// class Hello extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {greeting: "Hello"};
-//         this.changeGreeting = this.changeGreeting.bind(this);
-//     }
-
-//     changeGreeting() {
-//         var newGreeting;
-
-//         if (this.state.greeting == "Hello") {
-//             newGreeting = "Goodbye";
-//         } else {
-//             newGreeting = "Hello";
-//         }
-
-//         this.setState({greeting: newGreeting});
-//     }
-
-//     render() {
-//         var name;
-
-//         if (this.props.name) {
-//             name = <strong>{this.props.name}</strong>;
-//         } else {
-//             name = "mundo";
-//         }
-
-//         return <p onClick={this.changeGreeting}>{this.state.greeting}, {name}!</p>;
-//     }
-// }
-
-// class App extends React.Component {
-//     render() {
-//         var greetings = [];
-
-//         for(var i = 0; i < this.props.names.length; ++i){
-//             greetings.push(<Hello name={this.props.names[i]}/>);
-//         }
-
-//         return (
-//             <div>
-//                 { greetings }
-//             </div>
-//         );
-//     }
-// }
-
-// ReactDOM.render(<App names={["Jair", "Cristina"]}/>, document.getElementById('app'));

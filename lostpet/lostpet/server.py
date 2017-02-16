@@ -46,7 +46,7 @@ def get_pets():
         pets = pets.filter(LostPet.species_code == species_r)
 
     if text_search:
-        pets = pets.filter(LostPet.description.ilike("%% %s %%" % (text_search)))
+        pets = pets.filter(LostPet.description.ilike("%"+text_search+"%"))
 
     pets_list = []
     for pet in pets:
