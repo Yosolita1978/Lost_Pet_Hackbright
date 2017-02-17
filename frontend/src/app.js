@@ -228,7 +228,14 @@ class LostPetForm extends React.Component{
                                   description: this.state.description,
                                   neighborhood: this.state.neighborhood,
                                   email: this.state.email});
-        //console.log(this.state)
+        
+        this.setState({namePet: "",
+                       species: "",
+                       title: "",
+                       gender: "",
+                       description: "",
+                       neighborhood: "",
+                       email: ""})
     }
 
     render(){
@@ -380,17 +387,19 @@ class App extends React.Component{
         var description = formfilters.description;
         var neighborhood = formfilters.neighborhood;
         var email = formfilters.email;
-        this.state.formvalues.name = newname;
-        this.state.formvalues.species = species;
-        this.state.formvalues.title = title;
-        this.state.formvalues.gender = gender;
-        this.state.formvalues.description = description;
-        this.state.formvalues.neighborhood = neighborhood;
-        this.state.formvalues.email = email;
-        var data = this.state.formvalues;
+        
+        var data = new FormData();
+        data.append("name", newname);
+        data.append("species_code", species);
+        data.append("title", title);
+        data.append("gender", gender);
+        data.append("description", description);
+        data.append("neighborhood", neighborhood);
+        data.append("email", email);  
+        
         console.log(data);
 
-        // http://127.0.0.1:5000/lostpets/api/lostpets
+        //http://127.0.0.1:5000/lostpets/api/lostpets
         var myRequest = new Request('http://127.0.0.1:5000/lostpets/api/lostpets', {method: 'POST', body: data});
         fetch(myRequest)
             .then(function(response){

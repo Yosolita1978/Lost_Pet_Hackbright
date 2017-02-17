@@ -95,14 +95,14 @@ def create_pet():
     """Create a new into de DB"""
 
     print request.form
-    
-    if not request.form or not "species" in request.form:
-        abort(400)
+
+    if not request.form or not "species_code" in request.form:
+        abort(400, 'if you see this the error was in the params')
 
     #In the second sprint you have to investigate how to add photos
 
-    species_name = request.form["species"]
-    species_code = db.session.query(Species.species_code).filter(Species.name == species_name).first()
+    species_code = request.form["species_code"]
+
     #new_pet_id = pets[-1].lost_pet_id + 1
     new_pet_name = request.form.get("name", None)
     newpet_title = request.form.get("title", None)
