@@ -41,8 +41,6 @@ class LostPetList extends React.Component{
     }
 }
 
-
-
 class LostPetFilters extends React.Component{
     constructor(props){
         super(props);
@@ -166,15 +164,187 @@ class LostPetFilters extends React.Component{
     }
 }
 
+class LostPetForm extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {namePet: "",
+                      species: "",
+                      title: "",
+                      gender: "",
+                      description: "",
+                      neighborhood: "",
+                      email: ""};
+
+        this.handleChangeForm = this.handleChangeForm.bind(this);
+        this.handleSubmitForm = this.handleSubmitForm.bind(this);
+        this.handleSpeciesSelected = this.handleSpeciesSelected.bind(this);
+        this.handleTitleForm = this.handleTitleForm.bind(this);
+        this.handleGenderSelected = this.handleGenderSelected.bind(this);
+        this.handleDescriptionForm = this.handleDescriptionForm.bind(this);
+        this.handleNeighborhoodForm = this.handleNeighborhoodForm.bind(this);
+        this.handleEmailForm = this.handleEmailForm.bind(this);
+    }
+
+    handleChangeForm(event){
+        this.setState({namePet: event.target.value});
+    }
+
+    handleTitleForm(event){
+        this.setState({title: event.target.value});
+    }
+
+    handleSpeciesSelected(event){
+        var species = event.target.value;
+        this.setState({species: species});
+    }
+
+    handleGenderSelected(event){
+        var gender = event.target.value;
+        this.setState({gender: gender});
+    }
+
+    handleDescriptionForm(event){
+        var description = event.target.value;
+        this.setState({description: description});
+    }
+
+    handleNeighborhoodForm(event){
+        var neighborhood = event.target.value;
+        this.setState({neighborhood: neighborhood});
+    }
+
+    handleEmailForm(event){
+        var email = event.target.value;
+        this.setState({email: email});
+    }
+
+    handleSubmitForm(event){
+        
+        event.preventDefault();
+        this.props.onFormChanged({namePet: this.state.namePet,
+                                  species: this.state.species,
+                                  title: this.state.title,
+                                  gender: this.state.gender,
+                                  description: this.state.description,
+                                  neighborhood: this.state.neighborhood,
+                                  email: this.state.email});
+        //console.log(this.state)
+    }
+
+    render(){
+        var speciesForm = [
+            {
+                species: "dog",
+                species_code: "d"
+            },
+            {
+                species: "cat",
+                species_code: "c"
+            }
+        ];
+
+        var speciesFormsButtons = [];
+
+        for(var i=0; i < speciesForm.length; i++){
+            var speciesJ = speciesForm[i];
+            speciesFormsButtons.push(
+                <div key={i}>
+                    <label htmlFor={speciesJ.species_code}>{speciesJ.species}</label>
+                    <input type='radio'
+                        id={speciesJ.species_code}
+                        value={speciesJ.species_code}
+                        checked={speciesJ.species_code === this.state.species}
+                        onClick={this.handleSpeciesSelected} />
+                </div>
+
+            );
+        }
+
+        var genderForm = [
+            {
+                gender: "Male",
+                gender_code: "M"
+            },
+            {
+                gender: "Female",
+                gender_code: "F"
+            }
+        ];
+
+        var genderFormsButtons = [];
+
+        for(var i=0; i < genderForm.length; i++){
+            var gender = genderForm[i];
+            genderFormsButtons.push(
+                <div key={i}>
+                    <label htmlFor={gender.gender_code}>{gender.gender}</label>
+                    <input type='radio'
+                        id={gender.gender_code}
+                        value={gender.gender_code}
+                        checked={gender.gender_code === this.state.gender}
+                        onClick={this.handleGenderSelected} />
+                </div>
+
+            );
+        }
+
+
+        return(
+            <div className="container">
+                <h5> Please Report a Lost Pet </h5>
+                <form onSubmit={this.handleSubmitForm}>
+                <label>
+                    Name:
+                    <input type='text' value={this.state.namePet} onChange={this.handleChangeForm} />
+                </label>
+                <label>
+                    Species:
+                    { speciesFormsButtons }
+                </label>
+                <label>
+                    Title:
+                    <input type='text' value={this.state.title} onChange={this.handleTitleForm} />
+                </label>
+                <label>
+                    Gender:
+                    { genderFormsButtons }
+                </label>
+                <label>
+                    Description:
+                    <input type='textarea' value={this.state.description} onChange={this.handleDescriptionForm} />
+                </label>
+                <label>
+                    Neighborhood:
+                    <input type='text' value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
+                </label>
+                <label>
+                    Email:
+                    <input type='text' value={this.state.email} onChange={this.handleEmailForm} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+            </div>
+        );
+    }
+}
+
 
 class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             species: [],
-            pets: [],  
+            pets: [],
+            formvalues: {name: "",
+                        species: "",
+                        title: "",
+                        gender: "", 
+                        description: "",
+                        neighborhood: "",
+                        email: ""}  
         };
         this.getResults = this.getResults.bind(this);
+        this.postFormValues = this.postFormValues.bind(this);
     }
 
     componentDidMount(){
@@ -200,12 +370,48 @@ class App extends React.Component{
 
     }
 
+    postFormValues(formfilters){
+        var self = this;
+        
+        var newname = formfilters.namePet;
+        var species = formfilters.species;
+        var title = formfilters.title;
+        var gender = formfilters.gender;
+        var description = formfilters.description;
+        var neighborhood = formfilters.neighborhood;
+        var email = formfilters.email;
+        this.state.formvalues.name = newname;
+        this.state.formvalues.species = species;
+        this.state.formvalues.title = title;
+        this.state.formvalues.gender = gender;
+        this.state.formvalues.description = description;
+        this.state.formvalues.neighborhood = neighborhood;
+        this.state.formvalues.email = email;
+        var data = this.state.formvalues;
+        console.log(data);
+
+        // http://127.0.0.1:5000/lostpets/api/lostpets
+        var myRequest = new Request('http://127.0.0.1:5000/lostpets/api/lostpets', {method: 'POST', body: data});
+        fetch(myRequest)
+            .then(function(response){
+                if(response.status == 200) return response.json();
+                else throw new Error('Something went wrong on api server!');
+            })
+            .then(function(response){
+                console.debug(response);
+            })
+            .catch(function(error){
+                console.error(error);
+            });
+
+    }
 
     render(){
         return (
             <div>
                 <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
                 <LostPetList pets={this.state.pets}/>
+                <LostPetForm onFormChanged={this.postFormValues}/>
             </div>)
     }
 }
