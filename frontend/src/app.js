@@ -76,7 +76,7 @@ class LostPetFilters extends React.Component{
     }
 
     onValueChanged(event){
-        //console.log(event.target.value);
+        console.log(event.target.value);
         //event.preventDefault();
         var text_search = event.target.value;
         this.setState({value: text_search});
@@ -100,7 +100,7 @@ class LostPetFilters extends React.Component{
             var species = this.props.species[i];
             // console.log(species.species_code === this.state.species_code)
             speciesButtons.push(
-                <div key={i}>
+                <div className="form-group" key={i}>
                     <label htmlFor={species.species_code}>{species.name}</label>
                     <input type='radio' 
                            id={species.species_code} 
@@ -127,7 +127,7 @@ class LostPetFilters extends React.Component{
         for(var i=0; i < dates.length; i++){
             var date = dates[i];
             datesButtons.push(
-                <div key={i}>
+                <div className="form-group" key={i}>
                     <label htmlFor={"s"+date.since}>{date.text}</label>
                     <input type='radio'
                         id={"s"+date.since}
@@ -142,7 +142,7 @@ class LostPetFilters extends React.Component{
         var additionalFilters = null;
         if (this.state.species_code){
             var additionalFilters = (
-                <div>
+                <div className="form-group">
                     <label htmlFor='text_search'>Search</label>
                     <input type='text'
                         id='text_search'
@@ -154,12 +154,20 @@ class LostPetFilters extends React.Component{
             );
         }
 
-        return ( 
-            <form onSubmit={this.onSubmitText}> 
-                { speciesButtons }
-                { additionalFilters }
-
-            </form>
+        return (
+            <div className="container">
+                <div className="row"> 
+                    <form className="form-horizontal" onSubmit={this.onSubmitText}>
+                    <h4>Do you want to search for a pet</h4> 
+                    <div className="form-group">
+                        { speciesButtons }
+                    </div>
+                    <div className="form-group"> 
+                        { additionalFilters }
+                    </div> 
+                    </form>
+                </div>
+            </div>
         );
     }
 }
@@ -173,9 +181,10 @@ class LostPetForm extends React.Component{
                       gender: "",
                       description: "",
                       neighborhood: "",
-                      email: ""};
+                      email: "",
+                      errorMessageName: ""};
 
-        this.handleChangeForm = this.handleChangeForm.bind(this);
+        this.handleChangeName = this.handleChangeName.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
         this.handleSpeciesSelected = this.handleSpeciesSelected.bind(this);
         this.handleTitleForm = this.handleTitleForm.bind(this);
@@ -185,8 +194,10 @@ class LostPetForm extends React.Component{
         this.handleEmailForm = this.handleEmailForm.bind(this);
     }
 
-    handleChangeForm(event){
-        this.setState({namePet: event.target.value});
+    handleChangeName(event){
+
+        var namePet = event.target.value;
+        this.setState({namePet: namePet});
     }
 
     handleTitleForm(event){
@@ -218,24 +229,40 @@ class LostPetForm extends React.Component{
         this.setState({email: email});
     }
 
-    handleSubmitForm(event){
-        
+    checkIfValid(){
+
+        var nameNewPet = this.state.namePet;
+        if (!!nameNewPet && nameNewPet.length < 50){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    handleSubmitForm(event){ 
         event.preventDefault();
-        this.props.onFormChanged({namePet: this.state.namePet,
-                                  species: this.state.species,
-                                  title: this.state.title,
-                                  gender: this.state.gender,
-                                  description: this.state.description,
-                                  neighborhood: this.state.neighborhood,
-                                  email: this.state.email});
+
         
-        this.setState({namePet: "",
-                       species: "",
-                       title: "",
-                       gender: "",
-                       description: "",
-                       neighborhood: "",
-                       email: ""})
+        if (!this.checkIfValid()) {
+            this.setState({errorMessageName: "No more than 50 chars please in the name"});
+        }else{
+            this.props.onFormChanged({namePet: this.state.namePet,
+                                      species: this.state.species,
+                                      title: this.state.title,
+                                      gender: this.state.gender,
+                                      description: this.state.description,
+                                      neighborhood: this.state.neighborhood,
+                                      email: this.state.email});
+            this.setState({namePet: "",
+                           species: "",
+                           title: "",
+                           gender: "",
+                           description: "",
+                           neighborhood: "",
+                           email: ""});
+        }
+        
     }
 
     render(){
@@ -298,11 +325,12 @@ class LostPetForm extends React.Component{
 
         return(
             <div className="container">
-                <h5> Please Report a Lost Pet </h5>
                 <form onSubmit={this.handleSubmitForm}>
+                <div className="form-group">
+                <h5> Please Report a Lost Pet </h5>
                 <label>
-                    Name:
-                    <input type='text' value={this.state.namePet} onChange={this.handleChangeForm} />
+                    Name: <span className="error">{this.state.errorMessageName}</span>
+                    <input type='text' value={this.state.namePet} placeholder="Name missing Pet" onChange={this.handleChangeName} />
                 </label>
                 <label>
                     Species:
@@ -310,7 +338,7 @@ class LostPetForm extends React.Component{
                 </label>
                 <label>
                     Title:
-                    <input type='text' value={this.state.title} onChange={this.handleTitleForm} />
+                    <input type='text' placeholder="Title of your post" value={this.state.title} onChange={this.handleTitleForm} />
                 </label>
                 <label>
                     Gender:
@@ -318,17 +346,18 @@ class LostPetForm extends React.Component{
                 </label>
                 <label>
                     Description:
-                    <input type='textarea' value={this.state.description} onChange={this.handleDescriptionForm} />
+                    <input type='textarea' placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
                 </label>
                 <label>
                     Neighborhood:
-                    <input type='text' value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
+                    <input type='text' placeholder="Where does your pet live?" value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
                 </label>
                 <label>
                     Email:
-                    <input type='text' value={this.state.email} onChange={this.handleEmailForm} />
+                    <input type='text' placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
                 </label>
-                <input type="submit" value="Submit" />
+                <button type="submit" value="submit">Report {this.state.namePet} </button>
+            </div>
             </form>
             </div>
         );
@@ -397,7 +426,7 @@ class App extends React.Component{
         data.append("neighborhood", neighborhood);
         data.append("email", email);  
         
-        console.log(data);
+        //console.log(data);
 
         //http://127.0.0.1:5000/lostpets/api/lostpets
         var myRequest = new Request('http://127.0.0.1:5000/lostpets/api/lostpets', {method: 'POST', body: data});
