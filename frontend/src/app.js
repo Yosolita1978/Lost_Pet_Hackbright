@@ -182,7 +182,7 @@ class LostPetForm extends React.Component{
                       description: "",
                       neighborhood: "",
                       email: "",
-                      errorMessageName: ""};
+                      errorMessages: {}};
 
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleSubmitForm = this.handleSubmitForm.bind(this);
@@ -231,22 +231,70 @@ class LostPetForm extends React.Component{
 
     checkIfValid(){
 
+        var errors = {};
+        var totalErrors = 0;
+
         var nameNewPet = this.state.namePet;
-        if (!!nameNewPet && nameNewPet.length < 50){
-            return true;
-        } else {
-            return false;
+        if (!nameNewPet || nameNewPet.length > 50){
+            errors.name = "No more than 50 chars please in the name";
+            totalErrors++;
         }
+
+        //species is the species_code in the server.py
+        var speciesNewPet = this.state.species;
+        if (!speciesNewPet){
+            errors.species = "You must select a species for your lost pet";
+            totalErrors++;
+        }
+
+        var titleNewPet = this.state.title;
+        if (!titleNewPet || titleNewPet.length > 400){
+            errors.title = "Sorry, you're title must have less than 400 chars";
+            totalErrors++;
+        }
+
+        var genderNewPet = this.state.gender;
+        if (!genderNewPet){
+            errors.gender = "Your lost pet need a gender";
+            totalErrors++;
+        }
+
+        var descriptionNewPet = this.state.description;
+        if (!descriptionNewPet || descriptionNewPet > 1500){
+            errors.description = "You must provide a description of your pet";
+            totalErrors++;   
+        }
+
+        var neighborhoodNewPet = this.state.neighborhood;
+        if (!neighborhoodNewPet || neighborhoodNewPet > 400){
+            errors.neighborhood = "You must provide a neighborhood";
+            totalErrors++;      
+        }
+
+        var emailNewPet = this.state.email;
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(emailNewPet)){
+            errors.email = "You must provide a valid email";
+            totalErrors++;
+        }
+
+        if (totalErrors === 0){
+            return null;
+        } else {
+            return errors;
+        }
+        
     }
 
 
     handleSubmitForm(event){ 
         event.preventDefault();
 
-        
-        if (!this.checkIfValid()) {
-            this.setState({errorMessageName: "No more than 50 chars please in the name"});
-        }else{
+        var errorMessages = this.checkIfValid();
+
+        if (!!errorMessages) {
+            this.setState({errorMessages: errorMessages});
+        } else {
             this.props.onFormChanged({namePet: this.state.namePet,
                                       species: this.state.species,
                                       title: this.state.title,
@@ -260,7 +308,8 @@ class LostPetForm extends React.Component{
                            gender: "",
                            description: "",
                            neighborhood: "",
-                           email: ""});
+                           email: "",
+                           errorMessages: {}});
         }
         
     }
@@ -329,31 +378,31 @@ class LostPetForm extends React.Component{
                 <div className="form-group">
                 <h5> Please Report a Lost Pet </h5>
                 <label>
-                    Name: <span className="error">{this.state.errorMessageName}</span>
+                    Name: <span className="error">{this.state.errorMessages.name}</span>
                     <input type='text' value={this.state.namePet} placeholder="Name missing Pet" onChange={this.handleChangeName} />
                 </label>
                 <label>
-                    Species:
+                    Species: <span className="error">{this.state.errorMessages.species}</span>
                     { speciesFormsButtons }
                 </label>
                 <label>
-                    Title:
+                    Title: <span className="error">{this.state.errorMessages.title}</span>
                     <input type='text' placeholder="Title of your post" value={this.state.title} onChange={this.handleTitleForm} />
                 </label>
                 <label>
-                    Gender:
+                    Gender: <span className="error">{this.state.errorMessages.gender}</span>
                     { genderFormsButtons }
                 </label>
                 <label>
-                    Description:
+                    Description: <span className="error">{this.state.errorMessages.description}</span>
                     <input type='textarea' placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
                 </label>
                 <label>
-                    Neighborhood:
+                    Neighborhood: <span className="error">{this.state.errorMessages.neighborhood}</span>
                     <input type='text' placeholder="Where does your pet live?" value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
                 </label>
                 <label>
-                    Email:
+                    Email: <span className="error">{this.state.errorMessages.email}</span>
                     <input type='text' placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
                 </label>
                 <button type="submit" value="submit">Report {this.state.namePet} </button>
