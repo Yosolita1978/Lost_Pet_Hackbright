@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 
 function encodeQueryData(data) {
     var ret = [];
@@ -35,6 +36,7 @@ class LostPetList extends React.Component{
         }
         return(
             <div>
+                <h5> Results {this.props.pets.length} </h5>
                 {pets}
             </div>
         );
@@ -105,6 +107,7 @@ class LostPetFilters extends React.Component{
                     <input type='radio' 
                            id={species.species_code} 
                            value={species.species_code}
+                           className="form-control"
                            checked={species.species_code === this.state.species_code}
                            onClick={this.onSpeciesSelected} />
                 </div>
@@ -131,6 +134,7 @@ class LostPetFilters extends React.Component{
                     <label htmlFor={"s"+date.since}>{date.text}</label>
                     <input type='radio'
                         id={"s"+date.since}
+                        className="form-control"
                         value={date.since}
                         checked={date.since === this.state.since}
                         onClick={this.onDateSelected} />
@@ -142,32 +146,29 @@ class LostPetFilters extends React.Component{
         var additionalFilters = null;
         if (this.state.species_code){
             var additionalFilters = (
-                <div className="form-group">
-                    <label htmlFor='text_search'>Search</label>
-                    <input type='text'
-                        id='text_search'
-                        value={this.state.value}
-                        placeholder='Please enter a Keyword'
-                        onChange={this.onValueChanged} />
+                <div>
+                    <div className="form-group">
+                        <label htmlFor='text_search'>Search</label>
+                        <input type='text'
+                            id='text_search'
+                            className="form-control"
+                            value={this.state.value}
+                            placeholder='Please enter a Keyword'
+                            onChange={this.onValueChanged} />
+                    </div>
                     { datesButtons }
                 </div>
             );
         }
 
         return (
-            <div className="container">
-                <div className="row"> 
-                    <form className="form-horizontal" onSubmit={this.onSubmitText}>
-                    <h4>Do you want to search for a pet</h4> 
-                    <div className="form-group">
-                        { speciesButtons }
-                    </div>
-                    <div className="form-group"> 
-                        { additionalFilters }
-                    </div> 
-                    </form>
+            <form onSubmit={this.onSubmitText}>
+                <h4>Want to search a pet?</h4> 
+                <div className="form-group">
+                    { speciesButtons }
                 </div>
-            </div>
+                { additionalFilters } 
+            </form>
         );
     }
 }
@@ -331,13 +332,17 @@ class LostPetForm extends React.Component{
         for(var i=0; i < speciesForm.length; i++){
             var speciesJ = speciesForm[i];
             speciesFormsButtons.push(
-                <div key={i}>
-                    <label htmlFor={speciesJ.species_code}>{speciesJ.species}</label>
-                    <input type='radio'
-                        id={speciesJ.species_code}
-                        value={speciesJ.species_code}
-                        checked={speciesJ.species_code === this.state.species}
-                        onClick={this.handleSpeciesSelected} />
+                <div>
+                    <div className="form-group" key={i}>
+                        Species:
+                        <label htmlFor={speciesJ.species_code}>{speciesJ.species}</label>
+                        <input type='radio'
+                            id={speciesJ.species_code}
+                            className="form-control"
+                            value={speciesJ.species_code}
+                            checked={speciesJ.species_code === this.state.species}
+                            onClick={this.handleSpeciesSelected} />
+                    </div>
                 </div>
 
             );
@@ -359,13 +364,17 @@ class LostPetForm extends React.Component{
         for(var i=0; i < genderForm.length; i++){
             var gender = genderForm[i];
             genderFormsButtons.push(
-                <div key={i}>
-                    <label htmlFor={gender.gender_code}>{gender.gender}</label>
-                    <input type='radio'
-                        id={gender.gender_code}
-                        value={gender.gender_code}
-                        checked={gender.gender_code === this.state.gender}
-                        onClick={this.handleGenderSelected} />
+                <div>
+                    <div className="form-group" key={i}>
+                        Gender:
+                        <label htmlFor={gender.gender_code}>{gender.gender}</label>
+                        <input type='radio'
+                            id={gender.gender_code}
+                            value={gender.gender_code}
+                            className="form-control"
+                            checked={gender.gender_code === this.state.gender}
+                            onClick={this.handleGenderSelected} />
+                    </div>
                 </div>
 
             );
@@ -373,42 +382,133 @@ class LostPetForm extends React.Component{
 
 
         return(
-            <div className="container">
+            <div>
                 <form onSubmit={this.handleSubmitForm}>
-                <div className="form-group">
-                <h5> Please Report a Lost Pet </h5>
-                <label>
+                    <h4> Please Report a Lost Pet </h4>
+
+                    <div className="form-group">
+                    <label>
                     Name: <span className="error">{this.state.errorMessages.name}</span>
-                    <input type='text' value={this.state.namePet} placeholder="Name missing Pet" onChange={this.handleChangeName} />
-                </label>
-                <label>
-                    Species: <span className="error">{this.state.errorMessages.species}</span>
+                    <input type='text' className="form-control" value={this.state.namePet} placeholder="Name missing Pet" onChange={this.handleChangeName} />
+                    </label>
+                    </div>
+                    
+                    <span className="error">{this.state.errorMessages.species}</span>
                     { speciesFormsButtons }
-                </label>
-                <label>
+                    
+                    <div className="form-group">
+                    <label>
                     Title: <span className="error">{this.state.errorMessages.title}</span>
-                    <input type='text' placeholder="Title of your post" value={this.state.title} onChange={this.handleTitleForm} />
-                </label>
-                <label>
-                    Gender: <span className="error">{this.state.errorMessages.gender}</span>
+                    <input type='text' className="form-control" placeholder="Title of your post" value={this.state.title} onChange={this.handleTitleForm} />
+                    </label>
+                    </div>
+
+                    <span className="error">{this.state.errorMessages.gender}</span>
                     { genderFormsButtons }
-                </label>
-                <label>
+                    
+                    <div className="form-group">
+                    <label>
                     Description: <span className="error">{this.state.errorMessages.description}</span>
-                    <input type='textarea' placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
-                </label>
-                <label>
+                    <input type='textarea' className="form-control" placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
+                    </label>
+                    </div>
+                    
+                    <div className="form-group">
+                    <label>
                     Neighborhood: <span className="error">{this.state.errorMessages.neighborhood}</span>
-                    <input type='text' placeholder="Where does your pet live?" value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
-                </label>
-                <label>
+                    <input type='text' className="form-control" placeholder="Where does your pet live?" value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
+                    </label>
+                    </div>
+                    
+                    <div className="form-group">
+                    <label>
                     Email: <span className="error">{this.state.errorMessages.email}</span>
-                    <input type='text' placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
-                </label>
-                <button type="submit" value="submit">Report {this.state.namePet} </button>
+                    <input type='text' className="form-control" placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
+                    </label>
+                    </div>
+                    
+                    <div className="form-group">
+                    <button type="submit" value="submit">Report {this.state.namePet} </button>
+                    </div>
+                </form>
             </div>
-            </form>
-            </div>
+        );
+    }
+}
+
+var LostPetsGoogleMap = withGoogleMap(function(props) {
+    
+    var markers = [];
+    var pet, position;
+    var infoWindow;
+
+    function makeClickHandler(pet){
+        return function(){ props.onMarkerClick(pet) };
+    }
+
+    for (var i = 0; i < props.pets.length; i++){
+        pet = props.pets[i];
+        position = new google.maps.LatLng(pet.latitude, pet.longitude);
+        if (pet === props.selected_pet){
+            infoWindow = (
+                <InfoWindow onCloseClick={props.onMarkerClose}>
+                    <LostPet lostPet={pet} />
+                </InfoWindow>
+            );
+        } else {
+            infoWindow = null;
+        }
+
+        markers.push(
+            <Marker key={pet.lostpet_id}
+                    position = {position}
+                    onClick={ makeClickHandler(pet) }>
+                    { infoWindow }
+            </Marker>
+        );
+    }
+
+    return (
+        <GoogleMap
+            ref={props.onMapLoad}
+            defaultZoom={9}
+            defaultCenter={{ lat: 37.773, lng: -122.431 }}>
+            
+            { markers }
+
+        </GoogleMap>
+    );
+});
+
+class LostPetsMap extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {selected_pet: null};
+        this.onMarkerClick = this.onMarkerClick.bind(this);
+    }
+
+    onMarkerClick(pet){
+        console.log(pet)
+        this.setState({selected_pet: pet});
+    }
+
+    onMarkerClose(){
+        this.setState({selected_pet: null});
+    }
+
+    render(){
+        return (
+            <LostPetsGoogleMap 
+                containerElement={
+                    <div style={{ height: '400px' }} />
+                }
+                mapElement={
+                    <div style={{ height: '400px' }} />
+                }
+                onMarkerClick={this.onMarkerClick}
+                onMarkerClose={this.onMarkerClose}
+                pets = {this.props.pets}
+                selected_pet={this.state.selected_pet}/>
         );
     }
 }
@@ -495,10 +595,23 @@ class App extends React.Component{
 
     render(){
         return (
-            <div>
-                <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
-                <LostPetList pets={this.state.pets}/>
-                <LostPetForm onFormChanged={this.postFormValues}/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                    <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
+                    </div>
+                    <div className="col-md-6">
+                    <LostPetsMap pets = {this.state.pets}/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                    <LostPetList pets={this.state.pets}/>
+                    </div>
+                    <div className="col-md-6">
+                    <LostPetForm onFormChanged={this.postFormValues}/>
+                    </div>
+                </div>
             </div>)
     }
 }
