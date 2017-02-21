@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { Navbar, NavItem, Nav } from 'react-bootstrap';
+import {ModalContainer, ModalDialog} from 'react-modal';
+
+//In this place are the additional functions that I need just for create urls and others strings
 
 function encodeQueryData(data) {
     var ret = [];
@@ -12,6 +16,8 @@ function encodeQueryData(data) {
     });
     return ret.join('&');
 }
+
+// The first basic component is the LostPet component. I need this to show the info of just one lost pet. 
 
 class LostPet extends React.Component{
     render(){
@@ -25,6 +31,8 @@ class LostPet extends React.Component{
         );
     }
 }
+
+//This component make a list with all the lostpet that I'm pasing in the props. 
 
 class LostPetList extends React.Component{
     render(){
@@ -42,6 +50,8 @@ class LostPetList extends React.Component{
         );
     }
 }
+
+// This component make the filters for searching for a lostpet and saw all the list of pets that match that criteria
 
 class LostPetFilters extends React.Component{
     constructor(props){
@@ -172,6 +182,8 @@ class LostPetFilters extends React.Component{
         );
     }
 }
+
+//This component make a form to POST a new lostpet and send the request to the server
 
 class LostPetForm extends React.Component{
     constructor(props){
@@ -332,8 +344,8 @@ class LostPetForm extends React.Component{
         for(var i=0; i < speciesForm.length; i++){
             var speciesJ = speciesForm[i];
             speciesFormsButtons.push(
-                <div>
-                    <div className="form-group" key={i}>
+                <div key={i}>
+                    <div className="form-group">
                         Species:
                         <label htmlFor={speciesJ.species_code}>{speciesJ.species}</label>
                         <input type='radio'
@@ -364,8 +376,8 @@ class LostPetForm extends React.Component{
         for(var i=0; i < genderForm.length; i++){
             var gender = genderForm[i];
             genderFormsButtons.push(
-                <div>
-                    <div className="form-group" key={i}>
+                <div key={i}>
+                    <div className="form-group">
                         Gender:
                         <label htmlFor={gender.gender_code}>{gender.gender}</label>
                         <input type='radio'
@@ -436,6 +448,8 @@ class LostPetForm extends React.Component{
     }
 }
 
+//this create a GoogleMap variable/component
+
 var LostPetsGoogleMap = withGoogleMap(function(props) {
     
     var markers = [];
@@ -480,6 +494,8 @@ var LostPetsGoogleMap = withGoogleMap(function(props) {
     );
 });
 
+//This component pass the lostpet list component to the GoogleMaps component to use that information
+
 class LostPetsMap extends React.Component{
     constructor(props){
         super(props);
@@ -488,7 +504,7 @@ class LostPetsMap extends React.Component{
     }
 
     onMarkerClick(pet){
-        console.log(pet)
+        //console.log(pet)
         this.setState({selected_pet: pet});
     }
 
@@ -513,6 +529,97 @@ class LostPetsMap extends React.Component{
     }
 }
 
+//This component makes a Navbar that letme use the link botton as the trigger for the modal form of a new lostpet
+
+class NavbarInstance extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {isOpen: false};
+        this.toggleModal = this.toggleModal.bind(this);
+        
+        
+    }
+
+    toggleModal(event){
+        this.setState({isOpen: !this.state.isOpen});
+        console.log("They click the button")
+    }
+
+    render(){
+        return (
+            <Navbar inverse fixedTop>
+                <Navbar.Header>
+                <Navbar.Brand>
+                    <a>Search Lost Pet</a>
+                </Navbar.Brand>
+                <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                <Nav pullRight>
+                    <NavItem eventKey={1} onClick={this.toggleModal}>
+                    {this.props.text}
+                    </NavItem> 
+
+                    
+                    <ModalLostPet show={this.state.isOpen} onClose={this.toggleModal}>
+                    Here goes the contente of a model box
+                    </ModalLostPet>
+                    
+
+                </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+    }
+}
+
+//This component create the modal with the component for the form to report a new lostpet
+
+class ModalLostPet extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        if (!this.props.isModalOpen){
+            return null;
+        }
+        // the gray background in the modal mode (creo)
+        const backdropStyle = {
+            position: 'fixed',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,3)',
+            padding: 50
+        };
+
+        //The actually modal window
+        const modalStyle = {
+            backgroundColor: '#fff',
+            borderRadius: 5,
+            maxWidth: 500,
+            minHeight: 300,
+            margin: '0 auto',
+            padding: 30
+        };
+        return (
+            <div className="backdrop" style={backdropStyle}>
+                <div className="modal" style={modalStyle}>
+                    {this.props.children}
+                    <div className="footer">
+                        <button onClick={this.props.onClose}>
+                        Close the modal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+
+//This component is the App component of all the others, except the navbar
 
 class App extends React.Component{
     constructor(props){
@@ -595,6 +702,8 @@ class App extends React.Component{
 
     render(){
         return (
+            <div>
+            <NavbarInstance />
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
@@ -612,7 +721,9 @@ class App extends React.Component{
                     <LostPetForm onFormChanged={this.postFormValues}/>
                     </div>
                 </div>
-            </div>)
+            </div>
+            </div>
+        );
     }
 }
 
