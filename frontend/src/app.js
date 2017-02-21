@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { Navbar, NavItem, Nav } from 'react-bootstrap';
-import {ModalContainer, ModalDialog} from 'react-modal';
+import { Button, Modal } from 'react-bootstrap';
 
 //In this place are the additional functions that I need just for create urls and others strings
 
@@ -396,7 +396,7 @@ class LostPetForm extends React.Component{
         return(
             <div>
                 <form onSubmit={this.handleSubmitForm}>
-                    <h4> Please Report a Lost Pet </h4>
+                    
 
                     <div className="form-group">
                     <label>
@@ -535,14 +535,22 @@ class NavbarInstance extends React.Component{
     constructor(props){
         super(props)
         this.state = {isOpen: false};
-        this.toggleModal = this.toggleModal.bind(this);
+        this.isopenModal = this.isopenModal.bind(this);
+        this.iscloseModal = this.iscloseModal.bind(this);
         
         
     }
 
-    toggleModal(event){
-        this.setState({isOpen: !this.state.isOpen});
+    isopenModal(){
+        var openModal = !this.state.isOpen;
+        this.setState({isOpen: openModal});
         console.log("They click the button")
+    }
+
+    iscloseModal(){
+        var closeModal = !this.state.isOpen;
+        this.setState({isOpen: closeModal});
+        console.log("This close the modal")
     }
 
     render(){
@@ -556,16 +564,10 @@ class NavbarInstance extends React.Component{
                 </Navbar.Header>
                 <Navbar.Collapse>
                 <Nav pullRight>
-                    <NavItem eventKey={1} onClick={this.toggleModal}>
-                    {this.props.text}
-                    </NavItem> 
-
-                    
-                    <ModalLostPet show={this.state.isOpen} onClose={this.toggleModal}>
-                    Here goes the contente of a model box
-                    </ModalLostPet>
-                    
-
+                <NavItem eventKey={1} onClick={this.isopenModal}>
+                    Report LostPet
+                </NavItem>  
+                    <ModalLostPet show={this.state.isOpen} close={this.iscloseModal} />
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -580,41 +582,21 @@ class ModalLostPet extends React.Component{
         super(props);
     }
     render(){
-        if (!this.props.isModalOpen){
-            return null;
-        }
-        // the gray background in the modal mode (creo)
-        const backdropStyle = {
-            position: 'fixed',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(0,0,0,3)',
-            padding: 50
-        };
-
-        //The actually modal window
-        const modalStyle = {
-            backgroundColor: '#fff',
-            borderRadius: 5,
-            maxWidth: 500,
-            minHeight: 300,
-            margin: '0 auto',
-            padding: 30
-        };
         return (
-            <div className="backdrop" style={backdropStyle}>
-                <div className="modal" style={modalStyle}>
-                    {this.props.children}
-                    <div className="footer">
-                        <button onClick={this.props.onClose}>
-                        Close the modal
-                        </button>
-                    </div>
+                <div>
+                <Modal show={this.props.show} onHide={this.props.close} aria-labelledby="ModalHeader">
+                    <Modal.Header closeButton>
+                    <Modal.Title>Report a Lost Pet</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <LostPetForm onFormChanged={this.postFormValues}/>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button onClick={this.props.close}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
                 </div>
-            </div>
-        );
+            );
     }
 }
 
@@ -718,7 +700,6 @@ class App extends React.Component{
                     <LostPetList pets={this.state.pets}/>
                     </div>
                     <div className="col-md-6">
-                    <LostPetForm onFormChanged={this.postFormValues}/>
                     </div>
                 </div>
             </div>
