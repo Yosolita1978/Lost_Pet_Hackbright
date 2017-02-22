@@ -232,6 +232,7 @@ class LostPetForm extends React.Component{
                       description: "",
                       address: "",
                       email: "",
+                      phone: null,
                       errorMessages: {}};
 
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -242,6 +243,7 @@ class LostPetForm extends React.Component{
         this.handleDescriptionForm = this.handleDescriptionForm.bind(this);
         this.handleAddressForm = this.handleAddressForm.bind(this);
         this.handleEmailForm = this.handleEmailForm.bind(this);
+        this.handlePhoneForm = this.handlePhoneForm.bind(this);
     }
 
     handleChangeName(event){
@@ -277,6 +279,11 @@ class LostPetForm extends React.Component{
     handleEmailForm(event){
         var email = event.target.value;
         this.setState({email: email});
+    }
+
+    handlePhoneForm(event){
+        var phone = event.target.value;
+        this.setState({phone: phone});
     }
 
     checkIfValid(){
@@ -328,6 +335,16 @@ class LostPetForm extends React.Component{
             totalErrors++;
         }
 
+        var phoneNewPet = this.state.phone;
+        console.log(!!phoneNewPet);
+        if (!!phoneNewPet){
+            var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            if (!re.test(phoneNewPet)){
+                errors.phone = "Please enter a valid phone";
+                totalErrors++;
+            }
+        }
+
         if (totalErrors === 0){
             return null;
         } else {
@@ -351,7 +368,8 @@ class LostPetForm extends React.Component{
                                       gender: this.state.gender,
                                       description: this.state.description,
                                       address: this.state.address,
-                                      email: this.state.email});
+                                      email: this.state.email,
+                                      phone: this.state.phone});
             this.setState({namePet: "",
                            species: "",
                            title: "",
@@ -359,6 +377,7 @@ class LostPetForm extends React.Component{
                            description: "",
                            address: "",
                            email: "",
+                           phone: null,
                            errorMessages: {}});
         }
         
@@ -473,6 +492,13 @@ class LostPetForm extends React.Component{
                     <label>
                     Email: <span className="error">{this.state.errorMessages.email}</span>
                     <input type='text' className="form-control" placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
+                    </label>
+                    </div>
+
+                    <div className="form-group">
+                    <label>
+                    Phone: <span className="error">{this.state.errorMessages.phone}</span>
+                    <input type='number' className="form-control" placeholder="How can we contact you?" value={this.state.phone} onChange={this.handlePhoneForm} />
                     </label>
                     </div>
                     
@@ -652,7 +678,8 @@ class App extends React.Component{
                         gender: "", 
                         description: "",
                         address: "",
-                        email: ""}  
+                        email: "",
+                        phone: null}  
         };
         this.getResults = this.getResults.bind(this);
         this.postFormValues = this.postFormValues.bind(this);
@@ -691,6 +718,7 @@ class App extends React.Component{
         var description = formfilters.description;
         var address = formfilters.address;
         var email = formfilters.email;
+        var phone = formfilters.phone;
         
         var data = new FormData();
         data.append("name", newname);
@@ -700,7 +728,7 @@ class App extends React.Component{
         data.append("description", description);
         data.append("address", address);
         data.append("email", email);  
-        
+        data.append("phone", phone);
         //console.log(data);
 
         //http://127.0.0.1:5000/lostpets/api/lostpets
