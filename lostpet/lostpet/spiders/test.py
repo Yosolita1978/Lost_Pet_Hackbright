@@ -51,10 +51,10 @@ class PetSpider(CrawlSpider):
 
         sidebar = response.xpath('/html/body/section/section/section/div[1]/div/div[2]/text()')
         if len(sidebar) != 0:
-            neighborhood = response.xpath('/html/body/section/section/section/div[1]/div/div[2]/text()').extract()[0]
+            address = response.xpath('/html/body/section/section/section/div[1]/div/div[2]/text()').extract()[0]
             url_google = response.xpath('/html/body/section/section/section/div[1]/div/p/small/a/@href').extract()
         else:
-            neighborhood = response.xpath('/html/body/section/section/h2/span[2]/small/text()').extract()
+            address = response.xpath('/html/body/section/section/h2/span[2]/small/text()').extract()
             url_google = None
 
         item = LostPetItem(title=title,
@@ -63,12 +63,8 @@ class PetSpider(CrawlSpider):
                            description=description,
                            longitude=longitude,
                            latitude=latitude,
-                           neighborhood=neighborhood,
+                           address=address,
                            date=date,
                            url_google=url_google)
 
         yield item
-
-
-
-

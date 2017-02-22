@@ -35,35 +35,35 @@ class LostPetPipeline(object):
             longitude = item["longitude"]
             title = item["title"].decode("utf-8")
             img = item["img"]
-            neighborhood = item["neighborhood"]
+            address = item["address"]
             photo = None
 
             if type(img) == list and len(img) != 0:
                     photo = img[0]
 
-            if type(neighborhood) == list and len(neighborhood) != 0:
-                neighborhood = neighborhood[0]
+            if type(address) == list and len(address) != 0:
+                address = address[0]
 
             if "dog" in item["title"] or "DOG" in item["title"] or "Dog" in item["title"]:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
                 raise
 
-                pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
+                pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
 
             elif "cat" in item["title"] or "CAT" in item["title"] or "Cat" in item["title"]:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'cat').one()
 
-                pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
+                pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
 
             else:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'other').one()
                 if "cat" in item["description"] or "CAT" in item["description"] or "Cat" in item["description"]:
                     species_code = self.session.query(Species.species_code).filter(Species.name == 'cat').one()
-                    pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
+                    pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
 
                 elif "dog" in item["description"] or "DOG" in item["description"] or "Dog" in item["description"]:
                     species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
-                    pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, neighborhood=neighborhood, url=url)
+                    pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
 
                 else:
                     return

@@ -35,13 +35,13 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
-    twitter_handle = db.Column(db.String(30), nullable=True)
+    phone = db.Column(db.Integer, nullable=True)
     email = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<User user_id=%s twitter_handle=%s email=%s>" % (self.user_id, self.twitter_handle, self.email)
+        return "<User user_id=%s phone=%s email=%s>" % (self.user_id, self.phone, self.email)
 
 
 class Breed(db.Model):
@@ -115,24 +115,28 @@ class LostPet(db.Model):
     photo = db.Column(db.String(400), nullable=True)
     latitude = db.Column(db.String(400), nullable=True)
     longitude = db.Column(db.String(400), nullable=True)
-    neighborhood = db.Column(db.String(400), nullable=True)
+    address = db.Column(db.String(400), nullable=True)
     url = db.Column(db.String(400), nullable=True)
     title = db.Column(db.String(400), nullable=True)
+    phone = db.Column(db.Integer, nullable=True)
+    email = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return (u"<LostPet lostpet_id=%s lostpet_name=%s species_code=%s title=%s, description=%s datetime=%s photo=%s latitude=%s, longitude=%s, neighborhood=%s, url=%s>" % (self.lost_pet_id,
-                                                                                                                                                                               self.lost_pet_name,
-                                                                                                                                                                               self.species_code,
-                                                                                                                                                                               self.title,
-                                                                                                                                                                               self.description,
-                                                                                                                                                                               self.datetime,
-                                                                                                                                                                               self.photo,
-                                                                                                                                                                               self.latitude,
-                                                                                                                                                                               self.longitude,
-                                                                                                                                                                               self.neighborhood,
-                                                                                                                                                                               self.url)).encode('utf-8')
+        return (u"<LostPet lostpet_id=%s lostpet_name=%s species_code=%s title=%s, description=%s datetime=%s photo=%s latitude=%s, longitude=%s, address=%s, phone=%s, email=%s, url=%s>" % (self.lost_pet_id,
+                                                                                                                                                                                              self.lost_pet_name,
+                                                                                                                                                                                              self.species_code,
+                                                                                                                                                                                              self.title,
+                                                                                                                                                                                              self.description,
+                                                                                                                                                                                              self.datetime,
+                                                                                                                                                                                              self.photo,
+                                                                                                                                                                                              self.latitude,
+                                                                                                                                                                                              self.longitude,
+                                                                                                                                                                                              self.address,
+                                                                                                                                                                                              self.phone,
+                                                                                                                                                                                              self.email,
+                                                                                                                                                                                              self.url)).encode('utf-8')
 
     species = db.relationship("Species", backref=db.backref("lostpets"))
     user = db.relationship("User", backref=db.backref("lostpets"))

@@ -22,7 +22,7 @@ CORS(app)
 #         "photo": "https://images.craigslist.org/00P0P_jt3Lu2CTXB8_600x450.jpg",
 #         "latitude": 37.968884,
 #         "longitude": -122.511903,
-#         "neighborhood": " (san rafael)",
+#         "address": " (san rafael)",
 #         "url": "https://sfbay.craigslist.org/nby/laf/5995666386.html",
 #     }
 # ]
@@ -61,9 +61,11 @@ def get_pets():
             "photo": pet.photo,
             "latitude": pet.latitude,
             "longitude": pet.longitude,
-            "neighborhood": pet.neighborhood,
+            "address": pet.address,
             "url": pet.url,
             "user_id": pet.user_id,
+            "email": pet.email,
+            "phone": pet.phone
         }
         pets_list.append(pet_dict)
 
@@ -115,17 +117,25 @@ def create_pet():
 
     newpet_latitude = request.form.get("latitude", None)
     newpet_longitude = request.form.get("longitude", None)
-    newpet_neighborhood = request.form.get("neighborhood", None)
+    newpet_address = request.form.get("address", None)
 
     #gender is a string of 1 (M - F)
     newpet_gender = request.form.get("gender", None)
 
     newpet_user_id = None
-    if request.form["email"]:
-        new_user = User(email=request.form["email"])
+    newpet_email = None
+    newpet_phone = None
+
+    if request.form["email"] or request.form["phone"]:
+
+        new_user = User(email=request.form["email"], phone=request.form["phone"])
+        
         db.session.add(new_user)
         db.session.commit()
+
         newpet_user_id = new_user.user_id
+        newpet_email = new_user.email
+        newpet_phone = new_user.phone
 
     newpet = LostPet(species_code=species_code,
                      lost_pet_name=new_pet_name,
@@ -135,8 +145,10 @@ def create_pet():
                      datetime=newpet_date,
                      latitude=newpet_latitude,
                      longitude=newpet_longitude,
-                     neighborhood=newpet_neighborhood,
-                     user_id=newpet_user_id)
+                     address=newpet_address,
+                     user_id=newpet_user_id,
+                     email=newpet_email,
+                     phone=newpet_phone)
 
     db.session.add(newpet)
     db.session.commit()
@@ -150,9 +162,11 @@ def create_pet():
         "datetime": newpet.datetime,
         "latitude": newpet.latitude,
         "longitude": newpet.longitude,
-        "neighborhood": newpet.neighborhood,
+        "address": newpet.address,
         "gender": newpet.lost_pet_gender,
         "user_id": newpet.user_id,
+        "email": newpet.email,
+        "phone": newpet.phone
     }
 
     return json.dumps(newpet_dict, indent=4, sort_keys=True, default=str)

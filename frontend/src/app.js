@@ -23,10 +23,47 @@ class LostPet extends React.Component{
     render(){
         var lostPet = this.props.lostPet;
 
+        var url = null;
+        if (!!lostPet.url){
+            url = (<a id="url" href={lostPet.url} target="_blank">Link to Craiglist</a>);
+        }
+        
+        var email = null;
+        if (!!lostPet.email){
+            email = (<p id="email">Owner Email: {lostPet.email}</p>);
+        }
+        
+        
+        var phone = null;
+        if (!!lostPet.phone){
+            phone = (<p id="phone">Owner Phone: {lostPet.phone}</p>);
+        }
+        
+        var contact = (
+                <div>
+                    { email }
+                    { url }
+                    { phone }
+                </div>
+            );
+
+        var img = null;
+        if (!!lostPet.photo){
+            img = (<img src={lostPet.photo} id="img" className="thumbnail" />);
+        }
+
+        var address = null;
+        if(!!lostPet.address){
+            address = (<div id="addres">Address: {lostPet.address}</div>)
+        }
+        
         return (
             <div>
-                <h2>{lostPet.title}<small>{lostPet.species_code}</small></h2>
-                <p>Description:{lostPet.description}</p>
+                <h2>{lostPet.title}<small> Specie: {lostPet.species_code}</small></h2>
+                { img }
+                <div id="description">Description:{lostPet.description}</div>
+                { contact }
+                { address }
             </div>
         );
     }
@@ -193,7 +230,7 @@ class LostPetForm extends React.Component{
                       title: "",
                       gender: "",
                       description: "",
-                      neighborhood: "",
+                      address: "",
                       email: "",
                       errorMessages: {}};
 
@@ -203,7 +240,7 @@ class LostPetForm extends React.Component{
         this.handleTitleForm = this.handleTitleForm.bind(this);
         this.handleGenderSelected = this.handleGenderSelected.bind(this);
         this.handleDescriptionForm = this.handleDescriptionForm.bind(this);
-        this.handleNeighborhoodForm = this.handleNeighborhoodForm.bind(this);
+        this.handleAddressForm = this.handleAddressForm.bind(this);
         this.handleEmailForm = this.handleEmailForm.bind(this);
     }
 
@@ -232,9 +269,9 @@ class LostPetForm extends React.Component{
         this.setState({description: description});
     }
 
-    handleNeighborhoodForm(event){
-        var neighborhood = event.target.value;
-        this.setState({neighborhood: neighborhood});
+    handleAddressForm(event){
+        var address = event.target.value;
+        this.setState({address: address});
     }
 
     handleEmailForm(event){
@@ -278,9 +315,9 @@ class LostPetForm extends React.Component{
             totalErrors++;   
         }
 
-        var neighborhoodNewPet = this.state.neighborhood;
-        if (!neighborhoodNewPet || neighborhoodNewPet > 400){
-            errors.neighborhood = "You must provide a neighborhood";
+        var addressNewPet = this.state.address;
+        if (!addressNewPet || addressNewPet > 400){
+            errors.address = "You must provide a address";
             totalErrors++;      
         }
 
@@ -313,14 +350,14 @@ class LostPetForm extends React.Component{
                                       title: this.state.title,
                                       gender: this.state.gender,
                                       description: this.state.description,
-                                      neighborhood: this.state.neighborhood,
+                                      address: this.state.address,
                                       email: this.state.email});
             this.setState({namePet: "",
                            species: "",
                            title: "",
                            gender: "",
                            description: "",
-                           neighborhood: "",
+                           address: "",
                            email: "",
                            errorMessages: {}});
         }
@@ -427,8 +464,8 @@ class LostPetForm extends React.Component{
                     
                     <div className="form-group">
                     <label>
-                    Neighborhood: <span className="error">{this.state.errorMessages.neighborhood}</span>
-                    <input type='text' className="form-control" placeholder="Where does your pet live?" value={this.state.neighborhood} onChange={this.handleNeighborhoodForm} />
+                    Address: <span className="error">{this.state.errorMessages.address}</span>
+                    <input type='text' className="form-control" placeholder="Where does your pet live?" value={this.state.address} onChange={this.handleAddressForm} />
                     </label>
                     </div>
                     
@@ -614,7 +651,7 @@ class App extends React.Component{
                         title: "",
                         gender: "", 
                         description: "",
-                        neighborhood: "",
+                        address: "",
                         email: ""}  
         };
         this.getResults = this.getResults.bind(this);
@@ -652,7 +689,7 @@ class App extends React.Component{
         var title = formfilters.title;
         var gender = formfilters.gender;
         var description = formfilters.description;
-        var neighborhood = formfilters.neighborhood;
+        var address = formfilters.address;
         var email = formfilters.email;
         
         var data = new FormData();
@@ -661,7 +698,7 @@ class App extends React.Component{
         data.append("title", title);
         data.append("gender", gender);
         data.append("description", description);
-        data.append("neighborhood", neighborhood);
+        data.append("address", address);
         data.append("email", email);  
         
         //console.log(data);
@@ -696,10 +733,8 @@ class App extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                     <LostPetList pets={this.state.pets}/>
-                    </div>
-                    <div className="col-md-6">
                     </div>
                 </div>
             </div>

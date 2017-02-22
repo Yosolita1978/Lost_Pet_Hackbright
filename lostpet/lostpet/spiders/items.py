@@ -18,6 +18,6 @@ class LostPetItem(Item):
     author = Field()
     date = Field()
     contact_info = Field()
-    neighborhood = Field()
+    address = Field()
     url_google = Field()
     url = Field()
