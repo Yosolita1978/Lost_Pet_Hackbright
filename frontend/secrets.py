@@ -1,0 +1,1 @@
+CLOUDINARY_UPLOAD_PRESET = "hsmhfvo6";

@@ -36,7 +36,9 @@
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
+    "react-dropzone": "^3.10.0",
     "react-google-maps": "^6.0.1",
-    "react-modal": "^1.6.5"
+    "react-modal": "^1.6.5",
+    "superagent": "^3.4.4"
   }
 }

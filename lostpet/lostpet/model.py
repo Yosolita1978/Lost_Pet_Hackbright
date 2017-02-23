@@ -35,7 +35,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False)
-    phone = db.Column(db.Integer, nullable=True)
+    phone = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):
@@ -118,7 +118,7 @@ class LostPet(db.Model):
     address = db.Column(db.String(400), nullable=True)
     url = db.Column(db.String(400), nullable=True)
     title = db.Column(db.String(400), nullable=True)
-    phone = db.Column(db.Integer, nullable=True)
+    phone = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(80), nullable=True)
 
     def __repr__(self):

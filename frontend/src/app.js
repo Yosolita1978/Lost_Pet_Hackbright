@@ -4,6 +4,13 @@ import moment from 'moment';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { Navbar, NavItem, Nav } from 'react-bootstrap';
 import { Button, Modal } from 'react-bootstrap';
+import DropzoneComponent from 'react-dropzone-component';
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
+
+// remember put this in a secret file and in .gitignore
+const CLOUDINARY_UPLOAD_PRESET = 'lostpets';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/lostpets/image/upload';
 
 //In this place are the additional functions that I need just for create urls and others strings
 
@@ -50,6 +57,9 @@ class LostPet extends React.Component{
         var img = null;
         if (!!lostPet.photo){
             img = (<img src={lostPet.photo} id="img" className="thumbnail" />);
+        } else {
+            img = (<img src="https://pawedin.com/system/pets/default_images/default_pet.jpg" id="img" className="thumbnail" />);
+
         }
 
         var address = null;
@@ -220,6 +230,79 @@ class LostPetFilters extends React.Component{
     }
 }
 
+// This component make a especial zone for that allows the user upload a image
+
+class DropzoneDemo extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            uploadedFile: null,
+            uploadedFileCloudinaryUrl: ""
+        };
+        console.log(this.state.uploadedFile);
+
+        this.onImageDrop = this.onImageDrop.bind(this);
+        this.handleImageUpload = this.handleImageUpload.bind(this);
+    }
+
+
+    onImageDrop(files){
+        console.log(files);
+
+        this.setState({
+            uploadedFile: files[0]
+        });
+
+        this.handleImageUpload(files[0]);
+    }
+
+    handleImageUpload(file){
+        let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                         .field('file', file);
+
+        upload.end((err, response) => {
+            if (err) {
+                console.error(err);
+            }
+
+            if (response.body.secure_url !== ''){
+                this.setState({
+                    uploadedFileCloudinaryUrl: response.body.secure_url
+                });
+            }
+        });
+    }
+
+    render(){
+        return(
+            <div>
+            <div>
+             <Dropzone
+                onDrop={this.onImageDrop}
+                multiple={false}
+                accept="image/*"
+                size={150} >
+                <div> Drop and image or click to select a file to upload </div>
+            </Dropzone>
+            </div>
+
+            <div>
+              {this.state.uploadedFileCloudinaryUrl === '' ? null:
+               <div>
+                 <p>{this.state.uploadedFile.name}</p>
+                 <img src={this.state.uploadedFileCloudinaryUrl} />
+                </div>}
+            </div>
+            </div>
+        );
+    }
+}
+
+
+
+
 //This component make a form to POST a new lostpet and send the request to the server
 
 class LostPetForm extends React.Component{
@@ -232,7 +315,7 @@ class LostPetForm extends React.Component{
                       description: "",
                       address: "",
                       email: "",
-                      phone: null,
+                      phone: "",
                       errorMessages: {}};
 
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -377,7 +460,7 @@ class LostPetForm extends React.Component{
                            description: "",
                            address: "",
                            email: "",
-                           phone: null,
+                           phone: "",
                            errorMessages: {}});
         }
         
@@ -525,7 +608,9 @@ var LostPetsGoogleMap = withGoogleMap(function(props) {
 
     for (var i = 0; i < props.pets.length; i++){
         pet = props.pets[i];
+
         position = new google.maps.LatLng(pet.latitude, pet.longitude);
+
         if (pet === props.selected_pet){
             infoWindow = (
                 <InfoWindow onCloseClick={props.onMarkerClose}>
@@ -630,7 +715,7 @@ class NavbarInstance extends React.Component{
                 <NavItem eventKey={1} onClick={this.isopenModal}>
                     Report LostPet
                 </NavItem>  
-                    <ModalLostPet show={this.state.isOpen} close={this.iscloseModal} />
+                    <ModalLostPet onFormChanged={this.props.onFormChanged} show={this.state.isOpen} close={this.iscloseModal} />
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -652,7 +737,7 @@ class ModalLostPet extends React.Component{
                     <Modal.Title>Report a Lost Pet</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <LostPetForm onFormChanged={this.postFormValues}/>
+                        <LostPetForm onFormChanged={this.props.onFormChanged}/>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button onClick={this.props.close}>Close</Button>
@@ -671,15 +756,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             species: [],
-            pets: [],
-            formvalues: {name: "",
-                        species: "",
-                        title: "",
-                        gender: "", 
-                        description: "",
-                        address: "",
-                        email: "",
-                        phone: null}  
+            pets: [] 
         };
         this.getResults = this.getResults.bind(this);
         this.postFormValues = this.postFormValues.bind(this);
@@ -696,6 +773,7 @@ class App extends React.Component{
 
     getResults(params){
         var self = this;
+        var geocoder = new google.maps.Geocoder();
         var url = 'http://127.0.0.1:5000/lostpets/api/lostpets.json?';
         //var params = {text_search: this.text_search, species_code: this.selected_species}
         url += encodeQueryData(params)
@@ -703,8 +781,24 @@ class App extends React.Component{
         fetch(url).then(function (response){
             return response.json();
         }).then(function (data) {
+            
+            for (var i = 0; i < data.result.length; i++){
+                let pet = data.result[i];
+                if ((!pet.latitude || !pet.longitude) && !!pet.address){
+                    geocoder.geocode({address: pet.address}, function askGeocode(results, status){
+                        if(status === google.maps.GeocoderStatus.OK){
+                            var position = results[0].geometry.location;
+                            pet.latitude = position.lat();
+                            pet.longitude= position.lng();
+                            self.setState({pets: self.state.pets});
+                        }   
+                    });
+                }
+            }
             self.setState({pets: data.result});
         });
+
+
 
     }
 
@@ -750,7 +844,7 @@ class App extends React.Component{
     render(){
         return (
             <div>
-            <NavbarInstance />
+            <NavbarInstance onFormChanged={this.postFormValues}/>
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
@@ -761,9 +855,12 @@ class App extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
                     <LostPetList pets={this.state.pets}/>
                     </div>
+                    <div className="col-md-6">
+                    <DropzoneDemo />
+                    </div> 
                 </div>
             </div>
             </div>

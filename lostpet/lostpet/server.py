@@ -123,13 +123,16 @@ def create_pet():
     newpet_gender = request.form.get("gender", None)
 
     newpet_user_id = None
-    newpet_email = None
-    newpet_phone = None
 
-    if request.form["email"] or request.form["phone"]:
+    if not request.form.get("phone", None):
+        newpet_phone = None
+    else:
+        newpet_phone = request.form["phone"]
+
+    if request.form["email"]:
 
         new_user = User(email=request.form["email"], phone=request.form["phone"])
-        
+    
         db.session.add(new_user)
         db.session.commit()
 
