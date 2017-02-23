@@ -236,31 +236,22 @@ class DropzoneDemo extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            uploadedFile: null,
-            uploadedFileCloudinaryUrl: ""
-        };
-        console.log(this.state.uploadedFile);
+        this.state = {uploading: false,
+                      urlUpload: ""};
 
         this.onImageDrop = this.onImageDrop.bind(this);
-        this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
 
     onImageDrop(files){
-        console.log(files);
 
-        this.setState({
-            uploadedFile: files[0]
-        });
+        let file = files[0];
 
-        this.handleImageUpload(files[0]);
-    }
-
-    handleImageUpload(file){
         let upload = request.post(CLOUDINARY_UPLOAD_URL)
                          .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                          .field('file', file);
+
+        this.setState({uploading: true});
 
         upload.end((err, response) => {
             if (err) {
@@ -268,35 +259,51 @@ class DropzoneDemo extends React.Component{
             }
 
             if (response.body.secure_url !== ''){
-                this.setState({
-                    uploadedFileCloudinaryUrl: response.body.secure_url
-                });
+
+                console.log(response.body.secure_url);
+        
+                this.props.onImageUploaded(response.body.secure_url);
+                this.setState({uploading: false,
+                               urlUpload: response.body.secure_url});
             }
+
+
         });
+
     }
 
     render(){
-        return(
-            <div>
-            <div>
-             <Dropzone
-                onDrop={this.onImageDrop}
-                multiple={false}
-                accept="image/*"
-                size={150} >
-                <div> Drop and image or click to select a file to upload </div>
-            </Dropzone>
-            </div>
 
-            <div>
-              {this.state.uploadedFileCloudinaryUrl === '' ? null:
-               <div>
-                 <p>{this.state.uploadedFile.name}</p>
-                 <img src={this.state.uploadedFileCloudinaryUrl} />
-                </div>}
-            </div>
-            </div>
-        );
+        var message;
+
+        if(this.state.uploading){
+            message = "Uploading ..."
+        } else {
+            message = "Drop an image or click to select a file to upload"
+        }
+
+        var contentDropzone;
+        if(!this.state.urlUpload){
+            contentDropzone = (
+
+                <Dropzone
+                  onDrop={this.onImageDrop}
+                  multiple={false}
+                  accept="image/*"
+                  size={150} >
+
+                <div> { message }</div>
+                </Dropzone>
+            );
+        } else{
+            contentDropzone = (
+                <div>
+                    <img src={this.state.urlUpload} />
+                </div>
+            );
+        }
+
+        return contentDropzone;
     }
 }
 
@@ -316,6 +323,7 @@ class LostPetForm extends React.Component{
                       address: "",
                       email: "",
                       phone: "",
+                      photo: "",
                       errorMessages: {}};
 
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -327,6 +335,7 @@ class LostPetForm extends React.Component{
         this.handleAddressForm = this.handleAddressForm.bind(this);
         this.handleEmailForm = this.handleEmailForm.bind(this);
         this.handlePhoneForm = this.handlePhoneForm.bind(this);
+        this.onImageUploaded = this.onImageUploaded.bind(this);
     }
 
     handleChangeName(event){
@@ -367,6 +376,13 @@ class LostPetForm extends React.Component{
     handlePhoneForm(event){
         var phone = event.target.value;
         this.setState({phone: phone});
+    }
+
+    onImageUploaded(url){
+
+        this.setState({photo: url});
+        console.log("This is the url", url);
+
     }
 
     checkIfValid(){
@@ -445,6 +461,7 @@ class LostPetForm extends React.Component{
         if (!!errorMessages) {
             this.setState({errorMessages: errorMessages});
         } else {
+            console.log("Handle submit Form", this.state);
             this.props.onFormChanged({namePet: this.state.namePet,
                                       species: this.state.species,
                                       title: this.state.title,
@@ -452,7 +469,8 @@ class LostPetForm extends React.Component{
                                       description: this.state.description,
                                       address: this.state.address,
                                       email: this.state.email,
-                                      phone: this.state.phone});
+                                      phone: this.state.phone,
+                                      photo: this.state.photo});
             this.setState({namePet: "",
                            species: "",
                            title: "",
@@ -461,6 +479,7 @@ class LostPetForm extends React.Component{
                            address: "",
                            email: "",
                            phone: "",
+                           photo: "",
                            errorMessages: {}});
         }
         
@@ -584,6 +603,10 @@ class LostPetForm extends React.Component{
                     <input type='number' className="form-control" placeholder="How can we contact you?" value={this.state.phone} onChange={this.handlePhoneForm} />
                     </label>
                     </div>
+
+                    <div>
+                    <DropzoneDemo onImageUploaded={this.onImageUploaded} />
+                    </div>
                     
                     <div className="form-group">
                     <button type="submit" value="submit">Report {this.state.namePet} </button>
@@ -649,6 +672,7 @@ class LostPetsMap extends React.Component{
         super(props);
         this.state = {selected_pet: null};
         this.onMarkerClick = this.onMarkerClick.bind(this);
+        this.onMarkerClose = this.onMarkerClose.bind(this);
     }
 
     onMarkerClick(pet){
@@ -804,7 +828,7 @@ class App extends React.Component{
 
     postFormValues(formfilters){
         var self = this;
-        
+        console.log("Those are the formfilters", formfilters);
         var newname = formfilters.namePet;
         var species = formfilters.species;
         var title = formfilters.title;
@@ -813,6 +837,7 @@ class App extends React.Component{
         var address = formfilters.address;
         var email = formfilters.email;
         var phone = formfilters.phone;
+        var photo = formfilters.photo;
         
         var data = new FormData();
         data.append("name", newname);
@@ -823,6 +848,7 @@ class App extends React.Component{
         data.append("address", address);
         data.append("email", email);  
         data.append("phone", phone);
+        data.append("photo", photo);
         //console.log(data);
 
         //http://127.0.0.1:5000/lostpets/api/lostpets
@@ -833,7 +859,8 @@ class App extends React.Component{
                 else throw new Error('Something went wrong on api server!');
             })
             .then(function(response){
-                console.debug(response);
+                console.log(response);
+                self.setState({pets: [response]});
             })
             .catch(function(error){
                 console.error(error);
@@ -855,12 +882,9 @@ class App extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                     <LostPetList pets={this.state.pets}/>
                     </div>
-                    <div className="col-md-6">
-                    <DropzoneDemo />
-                    </div> 
                 </div>
             </div>
             </div>

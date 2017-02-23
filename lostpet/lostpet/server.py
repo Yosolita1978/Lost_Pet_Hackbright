@@ -129,6 +129,10 @@ def create_pet():
     else:
         newpet_phone = request.form["phone"]
 
+    newpet_photo = None
+    if request.form["photo"]:
+        newpet_photo = request.form["photo"]
+
     if request.form["email"]:
 
         new_user = User(email=request.form["email"], phone=request.form["phone"])
@@ -149,6 +153,7 @@ def create_pet():
                      latitude=newpet_latitude,
                      longitude=newpet_longitude,
                      address=newpet_address,
+                     photo=newpet_photo,
                      user_id=newpet_user_id,
                      email=newpet_email,
                      phone=newpet_phone)
@@ -167,6 +172,7 @@ def create_pet():
         "longitude": newpet.longitude,
         "address": newpet.address,
         "gender": newpet.lost_pet_gender,
+        "photo": newpet.photo,
         "user_id": newpet.user_id,
         "email": newpet.email,
         "phone": newpet.phone
