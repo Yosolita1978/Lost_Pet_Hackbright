@@ -159,15 +159,18 @@ class LostPetFilters extends React.Component{
             var species = this.props.species[i];
             // console.log(species.species_code === this.state.species_code)
             speciesButtons.push(
-                <div className="form-group" key={i}>
-                    <label htmlFor={species.species_code}>{species.name}</label>
-                    <input type='radio' 
+                
+                
+                    <label key={i} className="radio-inline" htmlFor={species.species_code}>
+                        <input type='radio' 
                            id={species.species_code} 
                            value={species.species_code}
-                           className="form-control"
                            checked={species.species_code === this.state.species_code}
                            onClick={this.onSpeciesSelected} />
-                </div>
+                        {species.name}
+                    </label>
+              
+
             );
         }
 
@@ -187,45 +190,60 @@ class LostPetFilters extends React.Component{
         for(var i=0; i < dates.length; i++){
             var date = dates[i];
             datesButtons.push(
-                <div className="form-group" key={i}>
-                    <label htmlFor={"s"+date.since}>{date.text}</label>
-                    <input type='radio'
+                
+                    <label className="radio-inline" key={i} htmlFor={"s"+date.since}>
+                      <input type='radio'
                         id={"s"+date.since}
-                        className="form-control"
                         value={date.since}
                         checked={date.since === this.state.since}
                         onClick={this.onDateSelected} />
-                </div>
+                    {date.text}
+                    </label>
+          
 
             );
         }
-
-        var additionalFilters = null;
-        if (this.state.species_code){
-            var additionalFilters = (
-                <div>
-                    <div className="form-group">
-                        <label htmlFor='text_search'>Search</label>
-                        <input type='text'
-                            id='text_search'
-                            className="form-control"
-                            value={this.state.value}
-                            placeholder='Please enter a Keyword'
-                            onChange={this.onValueChanged} />
-                    </div>
+         var dateSelectedField = (
+            <div className="form-group">
+                <label for="inputEmail3" className="col-sm-2 control-label">Select a Date</label>
+                 <div className="col-sm-10">
                     { datesButtons }
                 </div>
-            );
-        }
+            </div>
+        );
+        
+        var showAdditionalFilters = !!this.state.species_code;
+        
+        var search = (
+            <div className="form-group">
+                <label className="col-xs-2 control-label" htmlFor='text_search'> Search </label>
+                <div className="col-xs-10">
+                <input type='text'
+                    id='text_search'
+                    value={this.state.value}
+                    placeholder='Please enter a Keyword'
+                    className="form-control" 
+                    onChange={this.onValueChanged} />
+                </div>
+            </div>
+        );
+        
 
         return (
-            <form onSubmit={this.onSubmitText}>
-                <h4>Want to search a pet?</h4> 
+            <div>
+            <h4>Want to search a pet?</h4> 
+            <form className="form-horizontal col-xs-12" onSubmit={this.onSubmitText}>
+                
                 <div className="form-group">
-                    { speciesButtons }
+                    <label for="inputEmail3" className="col-sm-2 control-label">Select a Species</label>
+                     <div className="col-sm-10">
+                        { speciesButtons }
+                    </div>
                 </div>
-                { additionalFilters } 
+                { showAdditionalFilters ? search : "" } 
+                { showAdditionalFilters ? dateSelectedField : "" }
             </form>
+            </div>
         );
     }
 }
@@ -688,7 +706,7 @@ class LostPetsMap extends React.Component{
         return (
             <LostPetsGoogleMap 
                 containerElement={
-                    <div style={{ height: '400px' }} />
+                    <div style={{ height: '100%' }} />
                 }
                 mapElement={
                     <div style={{ height: '400px' }} />
@@ -727,7 +745,8 @@ class NavbarInstance extends React.Component{
 
     render(){
         return (
-            <Navbar inverse fixedTop>
+            
+            <Navbar inverse fixedTop className="navbar-wrapper">
                 <Navbar.Header>
                 <Navbar.Brand>
                     <a>Search Lost Pet</a>
@@ -872,21 +891,21 @@ class App extends React.Component{
         return (
             <div>
             <NavbarInstance onFormChanged={this.postFormValues}/>
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                    <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
-                    </div>
-                    <div className="col-md-6">
+                <div className="container-fluid">
                     <LostPetsMap pets = {this.state.pets}/>
-                    </div>
                 </div>
-                <div className="row">
+                <div className="container">
+                    <div className="row">
+                    
+                        <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
+                    
+                    </div>
+                    <div className="row">
                     <div className="col-md-12">
                     <LostPetList pets={this.state.pets}/>
                     </div>
                 </div>
-            </div>
+                </div>
             </div>
         );
     }

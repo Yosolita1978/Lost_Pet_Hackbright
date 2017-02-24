@@ -8,10 +8,34 @@ h2 {
 }
 
 #app {
-    margin-top: 80px;
+    margin-top: 51px;
 }
 
 img.thumbnail {
    width: 90px;
    height: 90px;
 }
+
+.navbar-inverse {
+  position: absolute;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #F5851F;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #F5851F;
+}
+
+.app-form{
+    margin-top: 25px;
+}
+
+.species-form{
+    display: block-level;
+    margin-bottom: 30px;
+    margin: 0;
+    width: 150px;
+}
+

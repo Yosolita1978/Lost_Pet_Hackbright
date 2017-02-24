@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from model import Species, User, Breed, Color, LostPet, BreedPet, ColorPet, connect_to_db
+import re
 
     # Configure to use our database.
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///lostpets'
@@ -46,7 +47,6 @@ class LostPetPipeline(object):
 
             if "dog" in item["title"] or "DOG" in item["title"] or "Dog" in item["title"]:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
-                raise
 
                 pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
 
@@ -57,16 +57,21 @@ class LostPetPipeline(object):
 
             else:
                 species_code = self.session.query(Species.species_code).filter(Species.name == 'other').one()
-                if "cat" in item["description"] or "CAT" in item["description"] or "Cat" in item["description"]:
+                cat_pattern = re.compile(r'\cat\b', re.I)
+                match_cat = cat_pattern.search(item["description"])
+                dog_pattern = re.compile(r'\dog\b', re.I)
+                match_dog = dog_pattern.search(item["description"])
+                if match_cat:
                     species_code = self.session.query(Species.species_code).filter(Species.name == 'cat').one()
                     pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
+                else:
+                    species_code = self.session.query(Species.species_code).filter(Species.name == 'other').one()
 
-                elif "dog" in item["description"] or "DOG" in item["description"] or "Dog" in item["description"]:
+                if match_dog:
                     species_code = self.session.query(Species.species_code).filter(Species.name == 'dog').one()
                     pet = LostPet(species_code=species_code, title=title, description=description, datetime=datetime, photo=photo, latitude=latitude, longitude=longitude, address=address, url=url)
-
                 else:
-                    return
+                    species_code = self.session.query(Species.species_code).filter(Species.name == 'other').one()
 
         else:
             print "Sorry, That pet already exists"
