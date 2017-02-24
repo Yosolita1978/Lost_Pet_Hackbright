@@ -87,17 +87,20 @@ class LostPet extends React.Component{
         }
         
         return (
-            <div className="image-element-class">
-                { nameTitle }
-                { img }
-                <div className="description" id="description">Description:
-                    <span className="text-des">
+            <div className="col-sm-4">
+                <div className="well">
+                  { nameTitle }
+                  { img }
+                  <div className="description" id="description">Description:
+                     <span className="text-des">
                         {lostPet.description}
-                    </span>
+                     </span>
+                  </div>
+                  { contact }
+                  { address }
                 </div>
-                { contact }
-                { address }
             </div>
+
         );
     }
 }
@@ -114,7 +117,7 @@ class LostPetList extends React.Component{
             
         }
         return(
-            <div>
+            <div className="row text-center grid3">
                 <h5> Results {this.props.pets.length} </h5>
                 {pets}
             </div>
@@ -921,15 +924,13 @@ class App extends React.Component{
                 </div>
                 <div className="container">
                     <div className="row">
-                    
                         <LostPetFilters species={this.state.species} onFilterChanged={this.getResults} />
-                    
-                    </div>
-                    <div className="row">
-                    <div className="col-md-12">
-                    <LostPetList pets={this.state.pets}/>
                     </div>
                 </div>
+                <div className="container">
+                    
+                    <LostPetList pets={this.state.pets}/>
+                    
                 </div>
             </div>
         );
