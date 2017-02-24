@@ -1,6 +1,70 @@
-h2 {
-    color: #c00;
-    border-bottom: solid 2px #c00;
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+h3 {
+    color: #C94612;
+    border-bottom: solid 2px #DA771B;
+    font-size: 19px;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+}
+
+h1 {
+    color: #005684;
+    font-size: 45px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+label{
+    font-size: 15px;
+    color: #005684;
+}
+
+.image-element-class{
+    width: 90%;
+    position: relative;
+    padding: 2em;
+    margin: 0px auto;
+    margin-top: 40px;
+    font-size: 18px;
+}
+.description .text{
+    position: relative;
+    font-size: 14px;
+    color: black;
+    width: 250px;
+}
+
+.text-des{
+    position: relative;
+    display: inline-block;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 5.6em; /* (Number of lines you want visible) * (line-height) */
+    line-height: 1.2em;
+    text-align:justify;
+}
+
+.image-element-class, .image-element-class:before, .image-element-class:after {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.image-element-class img{
+    max-width: 70%;
+    vertical-align: middle;
+    display: block;
+    margin: 0 auto;
+    border: 0;
+}
+
+.head-border-white {
+    background: #F5851F;
+    width: 20%;
+    height: 0;
 }
 
 .error{
@@ -18,14 +82,17 @@ img.thumbnail {
 
 .navbar-inverse {
   position: absolute;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .navbar-inverse .navbar-nav > li > a {
     color: #F5851F;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .navbar-inverse .navbar-brand {
     color: #F5851F;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .app-form{

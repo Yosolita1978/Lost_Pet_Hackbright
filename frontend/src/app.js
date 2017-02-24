@@ -12,6 +12,7 @@ import request from 'superagent';
 const CLOUDINARY_UPLOAD_PRESET = 'lostpets';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/lostpets/image/upload';
 
+
 //In this place are the additional functions that I need just for create urls and others strings
 
 function encodeQueryData(data) {
@@ -56,9 +57,9 @@ class LostPet extends React.Component{
 
         var img = null;
         if (!!lostPet.photo){
-            img = (<img src={lostPet.photo} id="img" className="thumbnail" />);
+            img = (<img src={lostPet.photo} id="img" />);
         } else {
-            img = (<img src="https://pawedin.com/system/pets/default_images/default_pet.jpg" id="img" className="thumbnail" />);
+            img = (<img src="https://pawedin.com/system/pets/default_images/default_pet.jpg" id="img" />);
 
         }
 
@@ -66,12 +67,34 @@ class LostPet extends React.Component{
         if(!!lostPet.address){
             address = (<div id="addres">Address: {lostPet.address}</div>)
         }
+
+        var nameTitle = null;
+        if(!!lostPet.lostpet_name){
+            nameTitle = (
+                <div>
+                <h2>{lostPet.lostpet_name}<small> Specie: {lostPet.species_code}</small></h2>
+                    <h4>{lostPet.title}</h4>
+                </div>
+            );
+
+        } else{
+            nameTitle = (
+                <div>
+                <h3>{lostPet.title}<small> Specie: {lostPet.species_code}</small></h3>
+                    <h4>{lostPet.lostpet_name}</h4>
+                    </div>
+            );
+        }
         
         return (
-            <div>
-                <h2>{lostPet.title}<small> Specie: {lostPet.species_code}</small></h2>
+            <div className="image-element-class">
+                { nameTitle }
                 { img }
-                <div id="description">Description:{lostPet.description}</div>
+                <div className="description" id="description">Description:
+                    <span className="text-des">
+                        {lostPet.description}
+                    </span>
+                </div>
                 { contact }
                 { address }
             </div>
@@ -88,6 +111,7 @@ class LostPetList extends React.Component{
         
         for(var i = 0; i < this.props.pets.length; i++) {
             pets.push(<LostPet key={i} lostPet={this.props.pets[i]}/>);
+            
         }
         return(
             <div>
@@ -205,7 +229,7 @@ class LostPetFilters extends React.Component{
         }
          var dateSelectedField = (
             <div className="form-group">
-                <label for="inputEmail3" className="col-sm-2 control-label">Select a Date</label>
+                <label className="col-sm-2 control-label">Select a Date</label>
                  <div className="col-sm-10">
                     { datesButtons }
                 </div>
@@ -231,11 +255,12 @@ class LostPetFilters extends React.Component{
 
         return (
             <div>
-            <h4>Want to search a pet?</h4> 
+            <h1>Search a pet</h1>
+            <hr className="head-border-white"/> 
             <form className="form-horizontal col-xs-12" onSubmit={this.onSubmitText}>
                 
                 <div className="form-group">
-                    <label for="inputEmail3" className="col-sm-2 control-label">Select a Species</label>
+                    <label className="col-sm-2 control-label">Select a Species</label>
                      <div className="col-sm-10">
                         { speciesButtons }
                     </div>

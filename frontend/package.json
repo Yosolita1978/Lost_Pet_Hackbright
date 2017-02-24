@@ -38,6 +38,7 @@
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.10.0",
     "react-google-maps": "^6.0.1",
+    "react-masonry-component": "^5.0.3",
     "react-modal": "^1.6.5",
     "superagent": "^3.4.4"
   }
