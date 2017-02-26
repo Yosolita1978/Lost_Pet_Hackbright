@@ -33,8 +33,11 @@ def get_pets():
 
     pets = db.session.query(LostPet)
 
+    #lost_pet_id
+
     species_r = request.args.get("species_code")
     text_search = request.args.get("text_search")
+    lost_pet_id = request.args.get("lost_pet_id")
 
     #Year-month-day
     since = request.args.get("since")
@@ -47,6 +50,9 @@ def get_pets():
 
     if text_search:
         pets = pets.filter(LostPet.description.ilike("%"+text_search+"%"))
+
+    if lost_pet_id:
+        pets = pets.filter(LostPet.lost_pet_id == lost_pet_id)
 
     pets_list = []
     for pet in pets:
