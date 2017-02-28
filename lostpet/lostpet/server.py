@@ -84,7 +84,9 @@ def get_pets():
 def get_species():
     """Return info about my species as JSON."""
 
+    print db
     species = db.session.query(Species).all()
+    print species
 
     species_list = []
     for s in species:
@@ -95,6 +97,7 @@ def get_species():
                 "name": s.name
                 }
             species_list.append(species_dict)
+    print species_list
 
     return json.dumps(species_list, indent=4, sort_keys=True, default=str)
 

@@ -40,7 +40,6 @@ class FlaskTestsDatabase(TestCase):
 
         # Create tables and add sample data
         db.create_all()
-        sample_data()
 
     def tearDown(self):
         """Do at end of every test."""
@@ -48,15 +47,62 @@ class FlaskTestsDatabase(TestCase):
         db.session.close()
         db.drop_all()
 
-    def test_get_species_dog(self):
-        """This test is for the Json of the Species"""
+    def test_it_returns_all_species_with_pets(self):
+        """This test is for the Json of the Species that had lostpets associated"""
         # [ { "name": "dog", "species_code": "d" }, { "name": "cat", "species_code": "c" } ]
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+        patitas = LostPet(species=cat_test,
+                          lost_pet_name="Patitas",
+                          title="My cat is missing. Help me",
+                          lost_pet_gender="M",
+                          description="Please help me find my five years old cat",
+                          datetime="2017-02-16 14:27:36.182000",
+                          latitude=37.7960949,
+                          longitude=-122.4133919,
+                          address="Russian Hill")
+        gota = LostPet(species=dog_test,
+                       lost_pet_name="Gota",
+                       title="My little chihuahua dog is missing. Help me",
+                       lost_pet_gender="F",
+                       description="Please help me find my five years old cat",
+                       datetime="2017-02-16 14:27:36.182000",
+                       latitude=37.7960949,
+                       longitude=-122.4133919,
+                       address="Russian Hill")
+
+        db.session.add_all([dog_test, cat_test, patitas, gota])
+        db.session.commit()
 
         response = self.client.get("/lostpets/api/species")
         data = json.loads(response.get_data(as_text=True))
-        print data
+        self.assertIn({"name": "dog", "species_code": "d"}, data)
+        self.assertIn({"name": "cat", "species_code": "c"}, data)
 
-        self.assertEqual(data[0], {"name": "dog", "species_code": "d"})
+    def test_it_returns_only_species_with_pets(self):
+        """This test is for the Json of the Species that only shows a species with lostpets associated"""
+        # [ { "name": "dog", "species_code": "d" }, { "name": "cat", "species_code": "c" } ]
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+        patitas = LostPet(species=cat_test,
+                          lost_pet_name="Patitas",
+                          title="My cat is missing. Help me",
+                          lost_pet_gender="M",
+                          description="Please help me find my five years old cat",
+                          datetime="2017-02-16 14:27:36.182000",
+                          latitude=37.7960949,
+                          longitude=-122.4133919,
+                          address="Russian Hill")
+
+        db.session.add_all([dog_test, cat_test, patitas])
+        db.session.commit()
+
+        response = self.client.get("/lostpets/api/species")
+        data = json.loads(response.get_data(as_text=True))
+        self.assertIn({"name": "cat", "species_code": "c"}, data)
+        self.assertNotIn({"name": "dog", "species_code": "d"}, data)
 
 if __name__ == "__main__":
     import unittest
