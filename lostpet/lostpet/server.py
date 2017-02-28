@@ -88,6 +88,7 @@ def get_species():
 
     species_list = []
     for s in species:
+        #This is a filter that only show species that had lostpets associeted
         if len(s.lostpets) != 0:
             species_dict = {
                 "species_code": s.species_code,

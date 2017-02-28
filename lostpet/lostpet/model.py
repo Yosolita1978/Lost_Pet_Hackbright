@@ -168,7 +168,79 @@ class ColorPet(db.Model):
 
 
 
-# End Part ORM
+#     #Add sample Users
+#     user_test1 = User(email="badhombre@example.com", phone="")
+#     user_test2 = User(email="nastywoman@example.com", phone="5552367431")
+#     user_test3 = User(email="", phone="5554261000")
+
+#     db.session.add_all([user_test1, user_test2, user_test3])
+#     db.session.commit()
+
+#     #Add sample of Breed
+#     lab_test = Breed(breed_code="lab", species_code="d", name="Labrador")
+#     box_test = Breed(breed_code="box", species_code="d", name="Boxer")
+#     coon_test = Breed(breed_code="coon", species_code="c", name="Maine Coon")
+#     sia_test = Breed(breed_code="sia", species_code="c", name="Siameses")
+
+#     db.session.add_all([lab_test, box_test, coon_test, sia_test])
+#     db.session.commit()
+
+#     #Add sample of Lost Pets
+#     linda = LostPet(species_code=dog_test,
+#                     lost_pet_name="Linda",
+#                     title="I lost my labrador partner",
+#                     lost_pet_gender="F",
+#                     description="Please help me find my pet. She is a puppy",
+#                     datetime="2017-02-14 22:30:45+00",
+#                     latitude=37.7651614,
+#                     longitude=-122.4601482,
+#                     address="Inner Sunset",
+#                     photo=None,
+#                     user_id=user_test1.user_id,
+#                     email=user_test1.email,
+#                     phone=user_test1.phone)
+
+#     tobias = LostPet(species_code=dog_test,
+#                      lost_pet_name="Tobias",
+#                      title="I lost my boxer. Two years old",
+#                      lost_pet_gender="M",
+#                      description="Please help me find my dog. He is my best friend",
+#                      datetime="2017-02-01 17:51:43.235000",
+#                      latitude=37.78526,
+#                      longitude=-122.411953,
+#                      address="Tenderloin",
+#                      photo=None,
+#                      user_id=user_test2.user_id,
+#                      email=user_test2.email,
+#                      phone=user_test2.phone)
+
+#     krysta = LostPet(species_code=cat_test,
+#                      lost_pet_name="Krysta",
+#                      title="My cat run away from home",
+#                      lost_pet_gender="F",
+#                      description="Please help me find my calico maine cat",
+#                      datetime="2017-02-10 11:08:51.067000",
+#                      latitude=37.7958617,
+#                      longitude=-122.3945241,
+#                      address="Pacific Heights",
+#                      photo=None,
+#                      user_id=user_test3.user_id,
+#                      email=user_test3.email,
+#                      phone=user_test3.phone)
+
+#     patitas = LostPet(species_code=cat_test,
+#                       lost_pet_name="Patitas",
+#                       title="My cat is missing. Help me",
+#                       lost_pet_gender="M",
+#                       description="Please help me find my five years old cat",
+#                       datetime="2017-02-16 14:27:36.182000",
+#                       latitude=37.7960949,
+#                       longitude=-122.4133919,
+#                       address="Russian Hill")
+
+#     db.session.add_all([linda, tobias, krysta, patitas])
+
+#     db.session.commit()
 
 
 ##############################################################################
@@ -183,18 +255,22 @@ def init_app():
     print "Connected to DB."
 
 
-def connect_to_db_flask(app):
+def connect_to_db_flask(app, db_url='postgresql:///lostpets'):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///lostpets'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
+    print db_url
 
 
 def connect_to_db():
+    """This function allows me connect the db with the pipeline of scrappy """
+
+    # Configure to use our database in scrapy
     engine = create_engine('postgres:///lostpets', echo=False, encoding='utf8')
     Session = sessionmaker(bind=engine)
     session = Session()
