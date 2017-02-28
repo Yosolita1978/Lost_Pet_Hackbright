@@ -10,7 +10,7 @@ export default class LostPet extends React.Component{
 
         var url = null;
         if (!!lostPet.url){
-            url = (<a id="url" href={lostPet.url} target="_blank">Link to Craiglist</a>);
+            url = (<a className="glyphicon" href={lostPet.url} target="_blank"><span className="glyphicon glyphicon-link">Craiglist</span></a>);
         }
         
         var email = null;
@@ -25,7 +25,7 @@ export default class LostPet extends React.Component{
         }
         
         var contact = (
-                <div>
+                <div className="panel-footer">
                     { email }
                     { url }
                     { phone }
@@ -34,30 +34,32 @@ export default class LostPet extends React.Component{
 
         var img = null;
         if (!!lostPet.photo){
-            img = (<img src={lostPet.photo} id="img" />);
+            img = (<img src={lostPet.photo} className="panel-img" />);
         } else {
-            img = (<img src="https://pawedin.com/system/pets/default_images/default_pet.jpg" id="img" />);
+            img = (<img src="https://pawedin.com/system/pets/default_images/default_pet.jpg" className="single-pet-img" />);
 
         }
 
         var address = null;
         if(!!lostPet.address){
-            address = (<div id="addres">Address: {lostPet.address}</div>)
+            address = (<div className="panel-footer" id="addres">Address: {lostPet.address}</div>)
         }
 
         var nameTitle = null;
         if(!!lostPet.lostpet_name){
             nameTitle = (
-                <div>
-                <h2>{lostPet.lostpet_name}<small> Specie: {lostPet.species_code}</small></h2>
+                <div className="panel-heading">
+                <h2>{lostPet.lostpet_name}</h2>
+                    <h5> Specie: {lostPet.species_code}</h5>
                     <h4>{lostPet.title}</h4>
                 </div>
             );
 
         } else{
             nameTitle = (
-                <div>
-                <h3>{lostPet.title}<small> Specie: {lostPet.species_code}</small></h3>
+                <div className="panel-heading">
+                <h2>{lostPet.title}</h2>
+                    <h5> Specie: {lostPet.species_code}</h5>
                     <h4>{lostPet.lostpet_name}</h4>
                     </div>
             );
@@ -67,10 +69,10 @@ export default class LostPet extends React.Component{
         
         return (
 
-            <div className="single-pet">
-                  { nameTitle }
+            <div className="panel panel-success">
                   { img }
-                  <div className="description" id="description">Description:
+                  { nameTitle }
+                  <div className="panel-body" id="description">
                      <span className="text-des">
                         {lostPet.description}
                      </span>
