@@ -25,7 +25,9 @@ var LostPetsGoogleMap = withGoogleMap(function(props) {
         if (pet === props.selected_pet){
             infoWindow = (
                 <InfoWindow onCloseClick={props.onMarkerClose}>
+                    <div className="info-window">
                     <LostPet lostPet={pet} />
+                    </div>
                 </InfoWindow>
             );
         } else {
@@ -44,7 +46,7 @@ var LostPetsGoogleMap = withGoogleMap(function(props) {
     return (
         <GoogleMap
             ref={props.onMapLoad}
-            defaultZoom={9}
+            defaultZoom={12}
             defaultCenter={{ lat: 37.773, lng: -122.431 }}>
             
             { markers }

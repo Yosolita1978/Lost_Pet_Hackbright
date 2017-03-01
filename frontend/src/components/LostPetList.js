@@ -19,7 +19,7 @@ export default class LostPetList extends React.Component{
 
 
         return(
-            <div className="row">
+            <div className="row pet-list">
               <h2> Results {this.props.pets.length} </h2>
                 <div className="col-sm-4">
                 {pets.slice(0, size)}

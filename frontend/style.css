@@ -30,7 +30,7 @@ label{
     color: #005684;
 }
 
-.panel-success{
+.pet-list .panel-success{
     
     background:#FFF;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.10);
@@ -44,11 +44,11 @@ label{
     width: 30rem;
 }
 
-.panel-success:hover{
+.pet-list .panel-success:hover{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,.10);
 }
 
-.panel-body .text{
+.pet-list .panel-body .text{
     position: relative;
     font-size: 14px;
     color: black;
@@ -56,7 +56,7 @@ label{
     padding: 2px 16px;
 }
 
-.text-des{
+.pet-list .text-des{
     position: relative;
     display: inline-block;
     word-wrap: break-word;
@@ -66,7 +66,7 @@ label{
     text-align:justify;
 }
 
-.panel-success img{
+.pet-list .panel-success img{
     width: 100%;
     height: 40%;
     vertical-align: middle;
@@ -76,7 +76,7 @@ label{
     border: 0;
 }
 
-.panel-heading {
+.pet-list .panel-heading {
     height: 90px;
     padding: 20px 30px 0;
     border-bottom: 1px solid #e1e8ee;
@@ -84,28 +84,83 @@ label{
     border-color: #B7C4CF !important;
 }
 
-.panel-footer{
+.pet-list .panel-footer{
     font-size: 12px;
     text-align: center;
 }
 
-.panel-success h2{
+.pet-list .panel-success h2{
     font-size: 18px;
     margin: 0;
     color: #A42F11;
     text-align: center;
 }
 
-.panel-success h5{
+.pet-list .panel-success h5{
     font-size: 12px;
     color: #C94612;
     text-align: center;
 }
 
-.panel-success h4{
+.pet-list .panel-success h4{
     font-size: 15px;
-    color: #36A3CA;
+    color: #CC4A30;
     text-align: center;
+}
+
+.info-window{
+    width: 600px;
+    height: 250px;
+}
+
+.info-window img{
+    float: left;
+    width: 25%;
+    margin: 2.5%;
+}
+
+.info-window .pet-info {
+    float: right;
+    width: 70%;
+}
+
+.info-window h2{
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 20px 0 0;
+    color: #A42F11;
+}
+
+.info-window h5{
+    font-size: 12px;
+    color: #C94612;
+    text-align: center;
+}
+
+.info-window .glyphicon {
+    font-size: 16px;
+}
+
+.info-window .panel-footer{
+    text-align: center;
+    background-color: white;
+}
+
+.info-window .panel-body {
+    position: relative;
+    font-size: 14px;
+    color: black;
+}
+
+.info-window .text-des{
+    position: relative;
+    display: inline-block;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 4.6em; /* (Number of lines you want visible) * (line-height) */
+    line-height: 1.2em;
+    text-align:justify;
 }
 
 .head-border-white {

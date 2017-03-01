@@ -50,7 +50,7 @@ export default class LostPet extends React.Component{
             nameTitle = (
                 <div className="panel-heading">
                 <h2>{lostPet.lostpet_name}</h2>
-                    <h5> Specie: {lostPet.species_code}</h5>
+                    <h5> Species: {lostPet.species_code}</h5>
                     <h4>{lostPet.title}</h4>
                 </div>
             );
@@ -59,7 +59,7 @@ export default class LostPet extends React.Component{
             nameTitle = (
                 <div className="panel-heading">
                 <h2>{lostPet.title}</h2>
-                    <h5> Specie: {lostPet.species_code}</h5>
+                    <h5> Species: {lostPet.species_code}</h5>
                     <h4>{lostPet.lostpet_name}</h4>
                     </div>
             );
@@ -71,6 +71,7 @@ export default class LostPet extends React.Component{
 
             <div className="panel panel-success">
                   { img }
+                <div className="pet-info">
                   { nameTitle }
                   <div className="panel-body" id="description">
                      <span className="text-des">
@@ -79,6 +80,7 @@ export default class LostPet extends React.Component{
                   </div>
                   { contact }
                   { address }
+                </div>
             </div>
 
         );
