@@ -212,3 +212,35 @@ img.thumbnail {
     width: 150px;
 }
 
+.modal-title{
+    text-align: center;
+    color: #F42B03;
+    margin-top: 10px;
+}
+
+.modal-title label{
+    text-align: right;
+    color: #101D42;
+}
+
+.modal-body{
+    position: relative;
+    padding: 15px;
+}
+
+.modal-body form{
+    display: block;
+    margin-top: 0em;
+}
+
+.modal-body .form-control{
+    margin-bottom: 30px;
+}
+
+.modal-body img{
+    border: 1px solid #cccccc;
+    padding: 10px;
+    margin-bottom: 25px;
+    height: 150px;
+}
+

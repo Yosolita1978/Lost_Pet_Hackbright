@@ -76,7 +76,7 @@ export default class DropzoneDemo extends React.Component{
             );
         } else{
             contentDropzone = (
-                <div>
+                <div className="col-sm-3" >
                     <img src={this.state.urlUpload} />
                 </div>
             );

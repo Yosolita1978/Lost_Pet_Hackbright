@@ -211,15 +211,14 @@ export default class LostPetForm extends React.Component{
             var speciesJ = speciesForm[i];
             speciesFormsButtons.push(
                 <div key={i}>
-                    <div className="form-group">
-                        Species:
-                        <label htmlFor={speciesJ.species_code}>{speciesJ.species}</label>
-                        <input type='radio'
+                    <div className="checkbox">
+                        <label htmlFor={speciesJ.species_code}>{speciesJ.species}
+                        <input type='checkbox'
                             id={speciesJ.species_code}
-                            className="form-control"
                             value={speciesJ.species_code}
                             checked={speciesJ.species_code === this.state.species}
                             onClick={this.handleSpeciesSelected} />
+                        </label>
                     </div>
                 </div>
 
@@ -243,15 +242,14 @@ export default class LostPetForm extends React.Component{
             var gender = genderForm[i];
             genderFormsButtons.push(
                 <div key={i}>
-                    <div className="form-group">
-                        Gender:
-                        <label htmlFor={gender.gender_code}>{gender.gender}</label>
-                        <input type='radio'
+                    <div className="checkbox">
+                        <label htmlFor={gender.gender_code}>{gender.gender}
+                        <input type='checkbox'
                             id={gender.gender_code}
                             value={gender.gender_code}
-                            className="form-control"
                             checked={gender.gender_code === this.state.gender}
                             onClick={this.handleGenderSelected} />
+                        </label>
                     </div>
                 </div>
 
@@ -267,55 +265,74 @@ export default class LostPetForm extends React.Component{
                 <Modal.Body>
                     <form onSubmit={this.handleSubmitForm}>
                         <div className="form-group">
-                        <label>
-                        Name: <span className="error">{this.state.errorMessages.name}</span>
+                        <label className="col-sm-2"> Name </label>
+                        <div className="col-sm-10">
+                        <span className="error">{this.state.errorMessages.name}</span>
                         <input type='text' className="form-control" value={this.state.namePet} placeholder="Name missing Pet" onChange={this.handleChangeName} />
-                        </label>
+                        </div>
                         </div>
                         
+                        <div className="form-group">
+                        <label className="col-sm-2 control-label">Species</label>
+                        <div className="col-sm-10">
                         <span className="error">{this.state.errorMessages.species}</span>
                         { speciesFormsButtons }
+                        </div>
+                        </div>
                         
                         <div className="form-group">
-                        <label>
-                        Title: <span className="error">{this.state.errorMessages.title}</span>
+                        <label className="col-sm-2"> Title </label>
+                         <div className="col-sm-10">
+                         <span className="error">{this.state.errorMessages.title}</span>
                         <input type='text' className="form-control" placeholder="Title of your post" value={this.state.title} onChange={this.handleTitleForm} />
-                        </label>
+                        </div>
                         </div>
 
+                        <div className="form-group">
+                        <label className="col-sm-2 control-label">Gender</label>
+                        <div className="col-sm-10">
                         <span className="error">{this.state.errorMessages.gender}</span>
                         { genderFormsButtons }
+                        </div>
+                        </div>
                         
                         <div className="form-group">
-                        <label>
-                        Description: <span className="error">{this.state.errorMessages.description}</span>
+                        <label className="col-sm-2"> Description </label>
+                         <div className="col-sm-10">
+                         <span className="error">{this.state.errorMessages.description}</span>
                         <input type='textarea' className="form-control" placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
-                        </label>
+                        </div>
                         </div>
                         
                         <div className="form-group">
-                        <label>
-                        Address: <span className="error">{this.state.errorMessages.address}</span>
+                        <label className="col-sm-2"> Address </label>
+                        <div className="col-sm-10">
+                         <span className="error">{this.state.errorMessages.address}</span>
                         <input type='text' className="form-control" placeholder="Where does your pet live?" value={this.state.address} onChange={this.handleAddressForm} />
-                        </label>
+                        </div>
                         </div>
                         
                         <div className="form-group">
-                        <label>
-                        Email: <span className="error">{this.state.errorMessages.email}</span>
+                        <label className="col-sm-2"> Email </label>
+                        <div className="col-sm-10">
+                         <span className="error">{this.state.errorMessages.email}</span>
                         <input type='text' className="form-control" placeholder="How can we contact you?" value={this.state.email} onChange={this.handleEmailForm} />
-                        </label>
+                        </div>
                         </div>
 
                         <div className="form-group">
-                        <label>
-                        Phone: <span className="error">{this.state.errorMessages.phone}</span>
+                        <label className="col-sm-2"> Phone </label>
+                        <div className="col-sm-10">
+                        <span className="error">{this.state.errorMessages.phone}</span>
                         <input type='number' className="form-control" placeholder="How can we contact you?" value={this.state.phone} onChange={this.handlePhoneForm} />
-                        </label>
+                        </div>
                         </div>
 
-                        <div>
+                        <div className="form-group">
+                        <label className="col-sm-3"> Photo </label>
+                        <div className="col-sm-9">
                         <DropzoneDemo onImageUploadStart={this.onImageUploadStart} onImageUploaded={this.onImageUploaded} />
+                        </div>
                         </div>
                     </form>
                 </Modal.Body>
