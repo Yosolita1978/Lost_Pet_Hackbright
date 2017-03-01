@@ -109,10 +109,9 @@ def create_pet():
         abort(400, 'if you see this the error was in the params')
 
     #In the second sprint you have to investigate how to add photos
-
+    # import pdb; pdb.set_trace()
     species_code = request.form["species_code"]
 
-    #new_pet_id = pets[-1].lost_pet_id + 1
     new_pet_name = request.form.get("name", None)
     newpet_title = request.form.get("title", None)
     newpet_description = request.form.get("description", None)
@@ -136,14 +135,13 @@ def create_pet():
     else:
         newpet_phone = request.form["phone"]
 
-    newpet_photo = None
-    if request.form["photo"]:
-        newpet_photo = request.form["photo"]
+    newpet_photo = request.form.get("photo", None)
 
-    if request.form["email"]:
+    newpet_email = request.form.get("email", None)
+    if newpet_email:
 
-        new_user = User(email=request.form["email"], phone=request.form["phone"])
-    
+        new_user = User(email=newpet_email, phone=newpet_phone)
+
         db.session.add(new_user)
         db.session.commit()
 
