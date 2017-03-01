@@ -296,11 +296,11 @@ export default class LostPetForm extends React.Component{
                         </div>
                         </div>
                         
-                        <div className="form-group">
+                        <div className="form-group" rows="3">
                         <label className="col-sm-2"> Description </label>
                          <div className="col-sm-10">
                          <span className="error">{this.state.errorMessages.description}</span>
-                        <input type='textarea' className="form-control" placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} />
+                        <textarea className="form-control" rows="3" placeholder="Please describe your pet" value={this.state.description} onChange={this.handleDescriptionForm} ></textarea>
                         </div>
                         </div>
                         

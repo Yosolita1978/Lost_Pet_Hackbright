@@ -288,7 +288,7 @@ class FlaskTestsDatabase(TestCase):
 
         response = self.client.post("/lostpets/api/lostpets", data=dict(
             species_code=species_code,
-            lost_pet_name=name,
+            name=name,
             title=title,
             lost_pet_gender=lost_pet_gender,
             address=address,
@@ -296,11 +296,154 @@ class FlaskTestsDatabase(TestCase):
 
         result = json.loads(response.get_data(as_text=True))
         # import pdb; pdb.set_trace()
-        print result
+        # print result
         self.assertIs(type(result), dict)
-        self.assertIn("lostpet_name", result)
+        self.assertIn(name, result["lostpet_name"])
         self.assertIn("lostpet_id", result)
 
+    def test_it_returns_an_user_if_you_pass_an_email(self):
+        """This test returns the newpet object and creates a new_user with the email of the owner"""
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+
+        db.session.add_all([dog_test, cat_test])
+        db.session.commit()
+
+        species_code = "d"
+        name = "Tobias"
+        title = "My dog run away from home"
+        lost_pet_gender = "M"
+        address = "Potrero Hill"
+        description = "Please help me find my black lab dog"
+        email = "nastywoman@gmail.com"
+
+        response = self.client.post("/lostpets/api/lostpets", data=dict(
+            species_code=species_code,
+            name=name,
+            title=title,
+            lost_pet_gender=lost_pet_gender,
+            address=address,
+            description=description,
+            email=email))
+
+        result = json.loads(response.get_data(as_text=True))
+        # import pdb; pdb.set_trace()
+        # print result
+        self.assertIs(type(result), dict)
+        self.assertIn(email, result["email"])
+        self.assertIn("user_id", result)
+        self.assertNotEqual(result["user_id"], 0)
+
+    def test_it_returns_an_user_if_you_pass_a_phone(self):
+        """This test returns the newpet object and creates a new_user with the phone of the owner"""
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+
+        db.session.add_all([dog_test, cat_test])
+        db.session.commit()
+
+        species_code = "d"
+        name = "Tobias"
+        title = "My dog run away from home"
+        lost_pet_gender = "M"
+        address = "Potrero Hill"
+        description = "Please help me find my black lab dog"
+        phone = "4154260010"
+
+        response = self.client.post("/lostpets/api/lostpets", data=dict(
+            species_code=species_code,
+            name=name,
+            title=title,
+            lost_pet_gender=lost_pet_gender,
+            address=address,
+            description=description,
+            phone=phone))
+
+        result = json.loads(response.get_data(as_text=True))
+        # import pdb; pdb.set_trace()
+        # print result
+        self.assertIs(type(result), dict)
+        self.assertIn(phone, result["phone"])
+        self.assertIn("user_id", result)
+        self.assertNotEqual(result["user_id"], 0)
+
+    def test_it_returns_an_user_with_all_the_info_and_a_lostpet(self):
+        """This test returns the newpet object and creates a new_user with all the information of the owner"""
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+
+        db.session.add_all([dog_test, cat_test])
+        db.session.commit()
+
+        species_code = "d"
+        name = "Tobias"
+        title = "My dog run away from home"
+        lost_pet_gender = "M"
+        address = "Inner Sunset"
+        description = "Please help me find my black lab dog"
+        datetime = "2017-02-14"
+        email = "badhombre@gmail.com"
+        phone = "4154260010"
+        latitude = 37.7651614
+        longitude = -122.4601482
+
+        response = self.client.post("/lostpets/api/lostpets", data=dict(
+            species_code=species_code,
+            name=name,
+            title=title,
+            lost_pet_gender=lost_pet_gender,
+            address=address,
+            description=description,
+            latitude=latitude,
+            longitude=longitude,
+            datetime=datetime,
+            email=email,
+            phone=phone))
+
+        result = json.loads(response.get_data(as_text=True))
+        # import pdb; pdb.set_trace()
+        # print result
+        self.assertIs(type(result), dict)
+        self.assertIn(email, result["email"])
+        self.assertIn(phone, result["phone"])
+        self.assertIn("user_id", result)
+        self.assertNotEqual(result["user_id"], 0)
+
+    def test_it_returns_a_lost_pet_with_a_date(self):
+        """This test returns the newpet object with the datetime that you're passing"""
+
+        dog_test = Species(name="dog", species_code="d")
+        cat_test = Species(name="cat", species_code="c")
+
+        db.session.add_all([dog_test, cat_test])
+        db.session.commit()
+
+        species_code = "d"
+        name = "Tobias"
+        title = "My dog run away from home"
+        lost_pet_gender = "M"
+        address = "Inner Sunset"
+        description = "Please help me find my black lab dog"
+        datetime = "2017-02-14"
+
+        response = self.client.post("/lostpets/api/lostpets", data=dict(
+            species_code=species_code,
+            name=name,
+            title=title,
+            lost_pet_gender=lost_pet_gender,
+            address=address,
+            description=description,
+            datetime=datetime))
+
+        result = json.loads(response.get_data(as_text=True))
+        # import pdb; pdb.set_trace()
+        # print result
+        self.assertIs(type(result), dict)
+        self.assertIn("datetime", result)
+        self.assertNotEqual(result["datetime"], None)
 
 
 if __name__ == "__main__":

@@ -103,12 +103,12 @@ def get_species():
 def create_pet():
     """Create a new into de DB"""
 
-    print request.form
+    # print request.form
 
     if not request.form or not "species_code" in request.form:
         abort(400, 'if you see this the error was in the params')
 
-    #In the second sprint you have to investigate how to add photos
+    
     # import pdb; pdb.set_trace()
     species_code = request.form["species_code"]
 
