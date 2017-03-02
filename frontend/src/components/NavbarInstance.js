@@ -36,7 +36,7 @@ export default class NavbarInstance extends React.Component{
                 <Navbar.Header>
                 <Navbar.Brand>
                     <a>Lost Pet
-                    <img src="./src/dogcat.png" className="nav-logo" />
+                    <img src="./static/dogcat.png" className="nav-logo" />
                     </a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
