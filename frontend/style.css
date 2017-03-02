@@ -202,12 +202,31 @@ img.thumbnail {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #F5851F;
+    color: #fff;
     font-family: 'Roboto', sans-serif !important;
+    background-color: #F42B03;
+    border-color: #F42B03;
+    border-radius: 5px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #fff;
+    font-family: 'Roboto', sans-serif !important;
+    background-color: #F42B03;
+    border-color: #F42B03;
+    border-radius: 5px;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #fff;
+    font-family: 'Roboto', sans-serif !important;
+    background-color: #F42B03;
+    border-color: #F42B03;
+    border-radius: 5px;
 }
 
 .navbar-inverse .navbar-brand {
-    color: #F5851F;
+    color: #F42B03;
     font-family: 'Roboto', sans-serif !important;
 }
 

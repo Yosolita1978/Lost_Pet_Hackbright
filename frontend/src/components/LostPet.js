@@ -41,8 +41,10 @@ export default class LostPet extends React.Component{
         }
 
         var address = null;
-        if(!!lostPet.address){
-            address = (<div className="panel-footer" id="addres">Address: {lostPet.address}</div>)
+        if (!!lostPet.address && lostPet.address.length === 2){
+            address == null;
+        } else {
+            address = (<div className="panel-footer" id="addres">Address: {lostPet.address}</div>);
         }
 
         var nameTitle = null;
