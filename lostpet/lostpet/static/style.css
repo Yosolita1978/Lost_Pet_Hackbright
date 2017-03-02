@@ -31,7 +31,7 @@ label{
 }
 
 .pet-list a{
-    color: #F42B03;
+    color: #F17300;
 }
 
 .pet-list .panel-success{
@@ -39,10 +39,10 @@ label{
     background:#FFF;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.10);
     transition: 0.3s;
-    border: 1px solid #02182B;
+    border: 1px solid black;
     border-radius: 6px;
-    border-top: 3px solid #02182B;
-    border-bottom: 3px solid #02182B;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
     padding:0px;
     margin:15px auto 0;
     overflow:hidden;
@@ -85,7 +85,7 @@ label{
     height: 90px;
     padding: 20px 5px 10;
     /*border-bottom: 1px solid #e1e8ee;*/
-    background-color: #68C5DB !important;
+    background-color: #81A4CD !important;
     /*border-color: #B7C4CF !important;*/
 }
 
@@ -98,19 +98,19 @@ label{
 .pet-list .panel-success h2{
     font-size: 18px;
     margin: 0;
-    color: #D7263D;
+    color: #054A91;
     text-align: center;
 }
 
 .pet-list .panel-success h5{
     font-size: 12px;
-    color: #02182B;
+    color: #DBE4EE;
     text-align: center;
 }
 
 .pet-list .panel-success h4{
     font-size: 15px;
-    color: #02182B;
+    color: #DBE4EE;
     text-align: center;
 }
 
@@ -135,17 +135,23 @@ label{
     text-align: center;
     margin: 0;
     padding: 20px 20px 0 0;
-    color: #A42F11;
+    color: #054A91;
 }
 
 .info-window h5{
     font-size: 12px;
-    color: #C94612;
+    color: #F17300;
+    text-align: center;
+}
+
+.info-window h4{
+    font-size: 15px;
     text-align: center;
 }
 
 .info-window .glyphicon {
     font-size: 16px;
+    color: #F17300;
 }
 
 .info-window .panel-footer{
@@ -199,6 +205,8 @@ img.thumbnail {
 .navbar-inverse {
   position: absolute;
   font-family: 'Roboto', sans-serif !important;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -277,5 +285,16 @@ img.thumbnail {
     margin-top: 25px;
     margin-bottom: 25px;
     border-top: 0px !important;
+}
+
+p.text-muted{
+    margin-top: 20px;
+    position: absolute;
+}
+
+.nav-logo{
+    float: left !important;
+    margin-top: -15px;
+    padding: 1px 13px;
 }
 

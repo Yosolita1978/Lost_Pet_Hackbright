@@ -12,6 +12,7 @@ import LostPetList from "./components/LostPetList";
 import LostPetFilters from "./components/LostPetFilters";
 import LostPetsMap from "./components/LostPetsMap";
 import NavbarInstance from "./components/NavbarInstance";
+import Footer from "./components/Footer";
 
 
 //In this place are the additional functions that I need just for create urls and others strings
@@ -139,6 +140,7 @@ class App extends React.Component{
                     <LostPetList pets={this.state.pets}/>
                     
                 </div>
+             <Footer></Footer>
             </div>
         );
     }

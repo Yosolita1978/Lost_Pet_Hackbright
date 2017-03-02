@@ -35,7 +35,9 @@ export default class NavbarInstance extends React.Component{
             <Navbar inverse fixedTop className="navbar-wrapper">
                 <Navbar.Header>
                 <Navbar.Brand>
-                    <a>Search Lost Pet</a>
+                    <a>Lost Pet
+                    <img src="./src/dogcat.png" className="nav-logo" />
+                    </a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 </Navbar.Header>
