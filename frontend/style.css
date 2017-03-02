@@ -20,7 +20,7 @@ h1 {
 h2{
     font-size: 44px;
     line-height: 1.2;
-    color: #2b2b2b;
+    color: #F42B03;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -30,14 +30,19 @@ label{
     color: #005684;
 }
 
+.pet-list a{
+    color: #F42B03;
+}
+
 .pet-list .panel-success{
     
     background:#FFF;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.10);
     transition: 0.3s;
-    border: 1px solid #ddd;
+    border: 1px solid #02182B;
     border-radius: 6px;
-    border-bottom:3px solid #BBB;
+    border-top: 3px solid #02182B;
+    border-bottom: 3px solid #02182B;
     padding:0px;
     margin:15px auto 0;
     overflow:hidden;
@@ -78,33 +83,34 @@ label{
 
 .pet-list .panel-heading {
     height: 90px;
-    padding: 20px 30px 0;
-    border-bottom: 1px solid #e1e8ee;
-    background-color: #B7C4CF !important;
-    border-color: #B7C4CF !important;
+    padding: 20px 5px 10;
+    /*border-bottom: 1px solid #e1e8ee;*/
+    background-color: #68C5DB !important;
+    /*border-color: #B7C4CF !important;*/
 }
 
 .pet-list .panel-footer{
     font-size: 12px;
     text-align: center;
+    background-color: #fff;
 }
 
 .pet-list .panel-success h2{
     font-size: 18px;
     margin: 0;
-    color: #A42F11;
+    color: #D7263D;
     text-align: center;
 }
 
 .pet-list .panel-success h5{
     font-size: 12px;
-    color: #C94612;
+    color: #02182B;
     text-align: center;
 }
 
 .pet-list .panel-success h4{
     font-size: 15px;
-    color: #CC4A30;
+    color: #02182B;
     text-align: center;
 }
 
@@ -160,7 +166,7 @@ label{
     overflow: hidden;
     max-height: 4.6em; /* (Number of lines you want visible) * (line-height) */
     line-height: 1.2em;
-    text-align:justify;
+    text-align: left;
 }
 
 .head-border-white {
@@ -171,6 +177,10 @@ label{
 
 .glyphicon {
     font-size: 16px;
+}
+
+#email p{
+    margin: 0 0 1px;
 }
 
 .error{
@@ -242,5 +252,11 @@ img.thumbnail {
     padding: 10px;
     margin-bottom: 25px;
     height: 150px;
+}
+
+.modal-footer{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-top: 0px !important;
 }
 

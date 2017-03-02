@@ -336,10 +336,10 @@ export default class LostPetForm extends React.Component{
                         </div>
                     </form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.props.close}>Close</Button>
-                    <Button bsStyle="primary" onClick={this.handleSubmitForm} disabled={this.state.imageUploading}>Report {this.state.namePet} </Button>
-                </Modal.Footer>
+                    <Modal.Footer>
+                        <Button onClick={this.props.close}>Close</Button>
+                        <Button bsStyle="primary" onClick={this.handleSubmitForm} disabled={this.state.imageUploading}>Report {this.state.namePet} </Button>
+                    </Modal.Footer>
             </Modal>
         );
     }
