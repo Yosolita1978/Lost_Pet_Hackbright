@@ -42,7 +42,7 @@ export default class NavbarInstance extends React.Component{
                 <Navbar.Collapse>
                 <Nav pullRight>
                 <NavItem eventKey={1} onClick={this.isopenModal}>
-                    Report LostPet
+                    Report a Pet
                 </NavItem>  
                     <LostPetForm onFormChanged={this.props.onFormChanged} show={this.state.isOpen} close={this.iscloseModal} />
                 </Nav>

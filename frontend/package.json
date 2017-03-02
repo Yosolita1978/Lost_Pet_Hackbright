@@ -4,7 +4,7 @@
   "description": "Frontend for LostPets",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production browserify src/app.js | uglifyjs -cm > dist/bundle.min.js",
+    "build": "NODE_ENV=production browserify src/app.js | uglifyjs -cm > ../lostpet/lostpet/static/bundle.min.js",
     "start": "NODE_ENV=development budo src/app.js:bundle.js --live -- --debug"
   },
   "author": "yosola@gmail.com",

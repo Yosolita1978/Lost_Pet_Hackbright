@@ -1,0 +1,15 @@
+
+
+#     patitas = LostPet(species_code=cat_test,
+#                       lost_pet_name="Pablo",
+#                       title="My cat is missing. Help me",
+#                       lost_pet_gender="M",
+#                       description="Please help me find my Siamese cat. He is old",
+#                       datetime="2017-02-16 14:27:36.182000",
+#                       latitude=37.7960949,
+#                       longitude=-122.4133919,
+#                       address="Russian Hill")
+
+#     db.session.add_all([linda, tobias, krysta, patitas])
+
+#     db.session.commit()

@@ -1,2 +1,0 @@
-{lat: 37.773, lng: -122.431}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDNr7_4mExAVJZgp7MQpFTicSOb7SmRag&callback=initMap"></script>
