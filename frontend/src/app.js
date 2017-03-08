@@ -83,7 +83,7 @@ class App extends React.Component{
 
     postFormValues(formfilters){
         var self = this;
-        console.log("Those are the formfilters", formfilters);
+        // console.log("Those are the formfilters", formfilters);
         var newname = formfilters.namePet;
         var species = formfilters.species;
         var title = formfilters.title;
@@ -114,7 +114,7 @@ class App extends React.Component{
                 else throw new Error('Something went wrong on api server!');
             })
             .then(function(response){
-                console.log(response);
+                // console.log(response);
                 self.getResults({lost_pet_id: response.lostpet_id});
             })
             .catch(function(error){

@@ -20,13 +20,13 @@ export default class NavbarInstance extends React.Component{
     isopenModal(){
         var openModal = !this.state.isOpen;
         this.setState({isOpen: openModal});
-        console.log("They click the button");
+        // console.log("They click the button");
     }
 
     iscloseModal(){
         var closeModal = !this.state.isOpen;
         this.setState({isOpen: closeModal});
-        console.log("This close the modal");
+        // console.log("This close the modal");
     }
 
     render(){
@@ -35,7 +35,7 @@ export default class NavbarInstance extends React.Component{
             <Navbar inverse fixedTop className="navbar-wrapper">
                 <Navbar.Header>
                 <Navbar.Brand>
-                    <a>Lost Pet
+                    <a href="/">Lost Pet
                     <img src="./static/dogcat.png" className="nav-logo" />
                     </a>
                 </Navbar.Brand>
