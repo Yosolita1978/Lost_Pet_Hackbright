@@ -29,8 +29,9 @@ class PetSpider(CrawlSpider):
     start_urls = ["https://sfbay.craigslist.org/search/laf?query=dog&lost_and_found_type=1",
                   "https://sfbay.craigslist.org/search/laf?query=cat&lost_and_found_type=1"]
 
+    # https://sfbay.craigslist.org/eby/laf/d/lost-dog-please-help-reward/6454192457.html
     rules = [
-        Rule(SgmlLinkExtractor(allow=[r'.*?/.+?/laf/\d+\.html']), callback='parse_pet', follow=False)]
+        Rule(SgmlLinkExtractor(allow=[r'.*?/.+?/laf/d/.+/\d+\.html']), callback='parse_pet', follow=False)]
 
     def parse_pet(self, response):
         url = response.url

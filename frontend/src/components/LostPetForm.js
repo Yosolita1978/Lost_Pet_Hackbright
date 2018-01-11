@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Modal, Navbar, NavItem, Nav } from 'react-bootstrap';
-import DropzoneComponent from 'react-dropzone-component';
-import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
 import DropzoneDemo from "./DropzoneDemo";

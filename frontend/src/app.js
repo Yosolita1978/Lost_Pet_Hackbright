@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { Button, Modal, Navbar, NavItem, Nav } from 'react-bootstrap';
-import DropzoneComponent from 'react-dropzone-component';
-import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
 
